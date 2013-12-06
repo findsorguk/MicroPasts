@@ -1,7 +1,7 @@
 en:
   layouts:
     footer:
-      quick_links: 'Background &amp; info'
+      quick_links: 'Background and info'
       about: 'Project team'
       discover: 'Find Projects'
       start_campaign: 'Start a Campaign'
@@ -11,7 +11,7 @@ en:
       legal: 'Privacy Policy'
       terms: 'Terms of Use'
       stay_in_touch: "Be a Micropasts member?"
-      built_with_love: 'An AHRC funded project | Built on top of the <a href="http://github.com/luminopolis/neighborly" target="blank">Neighborly project</a> | Open source'
+      built_with_love: 'An AHRC funded project | Built on top of the <a href="http://github.com/luminopolis/neighborly" target="blank">Neighborly project</a> and the original Catarse from Brazil| Open source'
       now_accepting_proposals: 'Now accepting proposals!'
       now_accepting_proposals_text: 'Do you have a heritage project that needs funding?'
       we_want_to_help: 'We want to help!'
