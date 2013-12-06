@@ -1,11 +1,11 @@
 en:
-  facebook_locale: 'en_US'
+  facebook_locale: 'en_GB'
   site:
-    title: "Invest in civic projects you care about"
-    meta_title:  "%{title} · %{company_name}"
-    description: "Crowdfunding for civic projects. Invest in places and civic projects you care about."
+    title: "Microfunding heritage research projects - Micropasts"
+    meta_title:  "%{title} &raquo; %{company_name}"
+    description: "Micro- and Crowd-funding for archaeological, heritage and arts based projects."
     keywords: "Neighbor.ly, crowdfunding, project, community, open source, civic"
     email:
-      contact: 'howdy@neighbor.ly'
+      contact: 'info@micropasts.org'
     ograph:
-      description: "Neighbor.ly is the best way for people, companies, and foundations to invest in the places and civic projects they care about."
+      description: "Micro- and Crowd-funding for archaeological, heritage and arts based projects."

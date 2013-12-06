@@ -4,6 +4,6 @@ en:
       get_involved: 'Get Involved!'
       completed: 'Completed'
       share:
-        twitter-text: "Check out the project %{name} #%{hash_tag} that I support on @Neighborly"
+        twitter-text: "Check out the project %{name} #%{hash_tag} that I support on @MicroPasts"
         twitter: 'Tweet'
         facebook: 'Share'

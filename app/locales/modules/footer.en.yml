@@ -1,8 +1,8 @@
 en:
   layouts:
     footer:
-      quick_links: 'Good to know...'
-      about: 'Meet the Neighbors'
+      quick_links: 'Background &amp; info'
+      about: 'Project team'
       discover: 'Find Projects'
       start_campaign: 'Start a Campaign'
       how_it_works: 'How It Works'
@@ -10,8 +10,8 @@ en:
       faq: 'FAQ / Help'
       legal: 'Privacy Policy'
       terms: 'Terms of Use'
-      stay_in_touch: "Won't you be our neighbor?"
-      built_with_love: 'Built with love & bbq sauce in downtown <a href="http://en.wikipedia.org/wiki/Kansas_City,_Missouri" target="blank" title="The one in Missouri">Kansas City</a> &nbsp; | &nbsp; <a href="http://github.com/luminopolis/neighborly" target="blank">Open source</a>'
+      stay_in_touch: "Be a Micropasts member?"
+      built_with_love: 'An AHRC funded project | Built on top of the <a href="http://github.com/luminopolis/neighborly" target="blank">Neighborly project</a> | Open source'
       now_accepting_proposals: 'Now accepting proposals!'
-      now_accepting_proposals_text: 'Have a civic project in need of funding? A streetcar, for example, or bike share, or perhaps a ball park? If you know of a civic project that could use a creative down payment...'
+      now_accepting_proposals_text: 'Do you have a heritage project that needs funding?'
       we_want_to_help: 'We want to help!'

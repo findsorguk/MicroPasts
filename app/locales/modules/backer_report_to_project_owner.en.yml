@@ -13,6 +13,6 @@ en:
     address_neighbourhood: 'Neighborhood'
     address_city: 'City'
     address_state: 'State'
-    address_zip_code: 'Zip Code'
+    address_zip_code: 'Zip or Post Code'
     anonymous: 'Anonymous'
     short_note: 'Message'

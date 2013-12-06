@@ -1,7 +1,7 @@
 en:
   projects:
     index:
-      title: 'Fundraising for civic projects | Civic Crowdfunding | CSR | Cause Marketing'
+      title: 'Fundraising for heritage projects'
       recommended: 'Recommended'
       near: 'Projects near'
       ending_soon: 'Ending Soon'
@@ -9,22 +9,22 @@ en:
       no_projects_near: 'No projects near %{city}.'
       discover: 'Explore more campaigns'
       join:
-        join_the_neighborhood: 'Join the Neighborhood'
+        join_the_neighborhood: 'Join MicroPasts'
         already_joined: 'Already joined? %{link}.'
         sign_in: 'Sign in'
       hero:
-        title: 'Invest in the places and civic projects <strong>you</strong> care about.'
+        title: 'Invest in heritage projects that <strong>you</strong> care about.'
         subtitle: "You're the solution you've been waiting for."
       how-it-works:
         one:
           headline: 'For Companies'
-          text: 'Neighbor.ly is the best way to earn golden impressions while doing good in customer communities.'
+          text: 'MicroPasts provides an opportunity for your company to make a good impression and help communities.'
           button: 'Coming Soon'
         two:
           headline: 'For Communities'
-          text: "If you have civic projects in need of new funding sources, you've come to the right place."
+          text: "If you have heritage projects in need of new funding sources, you've come to the right place."
           button: 'Raise Money'
         three:
-          headline: 'For Citizens'
-          text: 'Want to earn perks while enhancing cities? What you do matters. Welcome to the neighborhood.'
+          headline: 'For Individuals'
+          text: 'Do you want to earn rewards or perks while enhancing cities? What you do matters. Welcome to MicroPasts.'
           button: 'Find Projects'

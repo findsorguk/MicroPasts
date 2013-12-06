@@ -1,7 +1,7 @@
 en:
   layouts:
     header:
-      start_campaign: 'Start A Campaign'
+      start_campaign: 'Start a Campaign'
       discover: 'Discover'
       about: 'Learn'
       sign-out: 'Log out'

@@ -11,8 +11,8 @@ en:
           title: 'Total Users'
           hint: 'Number of People Engaged on Platform'
         total_company_users:
-          title: 'Total Companies/Organizations'
-          hint: 'Number of Companies/Organizations Engaged on Platform'
+          title: 'Total Companies/Organisations'
+          hint: 'Number of Companies/Organisations Engaged on Platform'
         total_communities:
           title: 'Total Communities'
           hint: 'Number of Communities Served'
