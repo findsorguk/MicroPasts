@@ -1,4 +1,4 @@
-- if Rails.env.development?
+- if Rails.env.production?
   = analytics_init if Configuration['google_analytics_id'].present?
   - if params[:ref].present?
     javascript:
