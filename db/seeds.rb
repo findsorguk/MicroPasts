@@ -48,39 +48,40 @@ puts 'Seeding the database...'
   'project_in_wainting_funds', 'credits_warning', 'backer_confirmed_after_project_was_closed',
   'backer_canceled_after_confirmed', 'new_user_registration', 'new_project_visible'
 ].each do |name|
-  NotificationType.find_or_create_by(name: name)
+#  NotificationType.find_or_create_by(name: name)
 end
 
 {
-  company_name: 'Catarse',
+  company_name: 'Micropasts',
   company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',
-  host: 'catarse.me',
-  base_url: "http://catarse.me",
+  host: 'crowdfunded.micropasts.org',
+  base_url: "http://crowdfunded.micropasts.org",
 
-  email_contact: 'contato@catarse.me',
-  email_payments: 'financeiro@catarse.me',
-  email_projects: 'projetos@catarse.me',
-  email_system: 'system@catarse.me',
-  email_no_reply: 'no-reply@catarse.me',
-  facebook_url: "http://facebook.com/catarse.me",
-  facebook_app_id: '173747042661491',
-  twitter_url: 'http://twitter.com/catarse',
-  twitter_username: "catarse",
-  mailchimp_url: "http://catarse.us5.list-manage.com/subscribe/post?u=ebfcd0d16dbb0001a0bea3639&amp;id=149c39709e",
-  catarse_fee: '0.13',
-  support_forum: 'http://suporte.catarse.me/',
-  base_domain: 'catarse.me',
-  uservoice_secret_gadget: 'change_this',
-  uservoice_key: 'uservoice_key',
-  faq_url: 'http://suporte.catarse.me/',
-  feedback_url: 'http://suporte.catarse.me/forums/103171-catarse-ideias-gerais',
-  terms_url: 'http://suporte.catarse.me/knowledgebase/articles/161100-termos-de-uso',
-  privacy_url: 'http://suporte.catarse.me/knowledgebase/articles/161103-pol%C3%ADtica-de-privacidade',
-  about_channel_url: 'http://blog.catarse.me/conheca-os-canais-do-catarse/',
-  instagram_url: 'http://instagram.com/catarse_',
-  blog_url: "http://blog.catarse.me",
-  github_url: 'http://github.com/catarse',
-  contato_url: 'http://suporte.catarse.me/'
+  email_contact: 'info@micropasts.org',
+  email_payments: 'funding@micropasts.org',
+  email_projects: 'projects@micropasts.org',
+  email_system: 'info@micropasts.org',
+  email_no_reply: 'no-reply@micropasts.org',
+  facebook_url: "http://facebook.com/micropasts",
+  facebook_app_id: 'change_me',
+  twitter_url: 'http://twitter.com/micropasts',
+  twitter_username: "micropasts",
+  twitter_widget_id: '407920344578531329',
+# mailchimp_url: "http://catarse.us5.list-manage.com/subscribe/post?u=ebfcd0d16dbb0001a0bea3639&amp;id=149c39709e",
+  catarse_fee: '0.01',
+  support_forum: 'http://community.micropasts.org/',
+  base_domain: 'crowdfunded.micropasts.org',
+# uservoice_secret_gadget: 'change_this',
+# uservoice_key: 'uservoice_key',
+  faq_url: 'http://micropasts.org/faq',
+  feedback_url: 'http://community.micropasts.org',
+  terms_url: 'http://micropasts.org/terms',
+  privacy_url: 'http://micropasts.org/privacy',
+  about_channel_url: 'http://micropasts/about',
+# instagram_url: 'http://instagram.com/catarse_',
+  blog_url: "http://micropasts.org",
+  github_url: 'http://github.com/findsorguk',
+  contato_url: 'http://micropasts.org/contact-us/'
 }.each do |name, value|
    conf = Configuration.find_or_initialize_by(name: name)
    conf.update_attributes({

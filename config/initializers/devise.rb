@@ -249,7 +249,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
 
-  if Rails.env.test?
+  if Rails.env.development?
     config.secret_key = '32c845d68d11'
   else
     def find_devise_secret_key
