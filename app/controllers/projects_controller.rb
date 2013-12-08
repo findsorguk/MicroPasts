@@ -124,7 +124,7 @@ class ProjectsController < ApplicationController
     #elsif request.location.present? && request.location.city.present? && request.location.country_code == 'US'
       #request.location.city
     else
-      'Kansas City, MO'
+      'London, UK'
     end
   end
 end
