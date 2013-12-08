@@ -2,7 +2,7 @@ en:
   facebook_locale: 'en_GB'
   site:
     title: "Microfunding heritage research projects - Micropasts"
-    meta_title:  "%{title} &raquo; %{company_name}"
+    meta_title:  "%{title} | %{company_name}"
     description: "Micro- and Crowd-funding for archaeological, heritage and arts based projects."
     keywords: "Neighbor.ly, crowdfunding, project, community, open source, civic"
     email:

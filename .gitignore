@@ -27,3 +27,5 @@ Cookbooks
 spec/tmp/
 *.sublime-project
 *.sublime-workspace
+/nbproject/private/
+/nbproject/*
