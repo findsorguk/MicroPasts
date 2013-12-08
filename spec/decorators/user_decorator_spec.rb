@@ -28,8 +28,8 @@ describe UserDecorator do
 
     context 'when profile type is company' do
       context "when we the company name" do
-        let(:user){ create(:user, profile_type: 'company', company_name: 'Neighbor.ly') }
-        it{ should == 'Neighbor.ly' }
+        let(:user){ create(:user, profile_type: 'company', company_name: 'MicroPasts') }
+        it{ should == 'MicroPasts' }
       end
 
       context "when we have no company name" do

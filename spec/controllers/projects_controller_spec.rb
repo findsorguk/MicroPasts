@@ -80,7 +80,7 @@ describe ProjectsController do
       let(:current_user) { create(:user) }
 
       before do
-        current_user.update email: "change-your-email+#{current_user.id}@neighbor.ly"
+        current_user.update email: "change-your-email+#{current_user.id}@micropasts.org"
         get :index
       end
 

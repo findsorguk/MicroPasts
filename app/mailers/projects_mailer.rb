@@ -7,7 +7,7 @@ class ProjectsMailer < ActionMailer::Base
 
     mail(
       from: "#{::Configuration[:company_name]} <#{::Configuration[:email_system]}>",
-      to: 'howdy@neighbor.ly',
+      to: 'info@micropasts.org',
       subject: "Contact about reward of project #{@project.name}."
     )
   end
