@@ -45,7 +45,7 @@ head
   = javascript_include_tag :application, 'data-turbolinks-track' => true
   = render 'layouts/analytics'
 body
-  = initjs_tag app_name: 'MicroPasts'
+  = initjs_tag app_name: 'Neighborly'
   = render_facebook_sdk
   = render 'layouts/loader'
   = render 'layouts/header'
@@ -54,5 +54,5 @@ body
   = yield
   = render 'layouts/footer'
   = yield :modals
-  = render 'layouts/uservoice'
+  /= render 'layouts/uservoice'
 |</html>
