@@ -159,7 +159,7 @@
       section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
       section.custom.neighbors-behind-this
-        .title = t('.neighbors_behind_this')
+        .title = t('.people_backing_this')
         - if @project.total_backers > 0
           .list
             - for backer in @project.backers.available_to_display.order("RANDOM()").limit(15)
@@ -167,7 +167,7 @@
           .more
             = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
         - else
-          p = t('.no-neighbors')
+          p = t('.no-backers')
 
 - content_for :modals do
   #reward-contact.reveal-modal.small.fixed
