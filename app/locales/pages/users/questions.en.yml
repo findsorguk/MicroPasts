@@ -2,6 +2,6 @@ en:
   users:
     questions:
       new:
-        title: 'Ask a question about %{project_name}'
+        title: 'Ask a question about "%{project_name}"'
         to: 'To: %{user_name}'
         send: 'Ask question'
