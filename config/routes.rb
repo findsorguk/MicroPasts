@@ -1,4 +1,4 @@
-require 'sidekiq/web'
+  require 'sidekiq/web'
 
 Catarse::Application.routes.draw do
 
@@ -22,8 +22,8 @@ Catarse::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  mount CatarseCreditCardNet::Engine => "/", as: :catarse_credit_card_net
-  mount CatarseEcheckNet::Engine => "/", as: :catarse_echeck_net
+  #mount CatarseCreditCardNet::Engine => "/", as: :catarse_credit_card_net
+  #mount CatarseEcheckNet::Engine => "/", as: :catarse_echeck_net
   mount CatarsePaypalExpress::Engine => "/", as: :catarse_paypal_express
   #mount CatarseMoip::Engine => "/", as: :catarse_moip
 
