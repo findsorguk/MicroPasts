@@ -14,11 +14,11 @@
       .clearfix
 
   section.fw-fountain-image
-    = image_tag('fountain-marker.png', alt: 'Fountain Marker')
+    = image_tag(#{project.uploaded_image}, alt: #{project.name})
   section.fw-fountain-raised
     div class='total_raised' style='width: 100%'
       .bar style='height: #{project.display_progress}%; width: 100%'
         | &nbsp;
 
   section.fw-footer
-    = link_to 'Save our fountains', project_url(project), class: 'fountain-btn', target: :blank
+    = link_to #{project.name}, project_url(project), class: 'fountain-btn', target: :blank

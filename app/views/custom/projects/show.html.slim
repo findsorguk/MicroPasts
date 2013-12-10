@@ -48,7 +48,7 @@
             span.meter[style="width: #{@project.display_progress}%"]
           .pledged
             = @project.display_pledged
-            small = t('.so_far').html_safe
+            small = t('.so_far')
             = @project.display_goal
 
   section.status-bar

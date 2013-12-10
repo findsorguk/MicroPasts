@@ -56,7 +56,6 @@ end
   company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',
   host: 'crowdfunded.micropasts.org',
   base_url: "http://crowdfunded.micropasts.org",
-
   email_contact: 'info@micropasts.org',
   email_payments: 'funding@micropasts.org',
   email_projects: 'projects@micropasts.org',
