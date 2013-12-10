@@ -5,11 +5,18 @@ en:
       terms-link: 'Terms & Conditions of Use'
       confirm: 'Confirm payment'
       proccessing: 'Processing...'
-	credit-card-net.title: 'Credit card'
       error:
         title: "Sorry, something must've gone wrong."
         name: 'Please reload this page and try again.'
-    
+    credit-card-net:
+	  title: 'Credit card'
+        subtitle: 'Enter your details'
+        labels:
+          billing_first_name: First name
+          billing_last_name: Last name
+          card_number: Card number
+          card_code: Card code
+          expiration_card_month: Card expiry month
     paypal:
       title: 'Checkout using Paypal'
       subtile: "You will be taken to Paypal's checkout screen in the next step."
