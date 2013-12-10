@@ -5,6 +5,7 @@ en:
       terms-link: 'Terms & Conditions of Use'
       confirm: 'Confirm payment'
       proccessing: 'Processing...'
+	credit-card-net.title: 'Credit card'
       error:
         title: "Sorry, something must've gone wrong."
         name: 'Please reload this page and try again.'
