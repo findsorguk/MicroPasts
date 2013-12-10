@@ -1,3 +1,4 @@
+#coding: utf-8
 en:
   date:
     abbr_day_names:
@@ -147,7 +148,7 @@ en:
         separator: .
         significant: false
         strip_insignificant_zeros: false
-        unit: '&pound;'
+        unit: '£'
     format:
       delimiter: ! ','
       precision: 3

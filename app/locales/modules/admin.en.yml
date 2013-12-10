@@ -109,7 +109,7 @@ en:
     financials:
       index:
         menu: 'Financial reports'
-        title: 'Finalcial reports'
+        title: 'Financial reports'
         submit: 'Filter'
         with_state: 'By state'
         by_progress: By progress %
@@ -155,7 +155,7 @@ en:
         payment_fee: 'Payment method fee'
         payment_choice: 'Payment choice'
         payer_email: 'Payer email'
-        user_email: 'Catarse user email'
+        user_email: 'User email'
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
         title: "Backers management"
