@@ -147,7 +147,7 @@ en:
         separator: .
         significant: false
         strip_insignificant_zeros: false
-        unit: '&pound;'
+        unit: 'U+00A3'
     format:
       delimiter: ! ','
       precision: 3
