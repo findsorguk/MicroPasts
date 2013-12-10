@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     else
       value = backer.value
     end
-    number_to_currency value, :unit => "$", :precision => 2, :delimiter => ','
+    number_to_currency value, :unit => "£", :precision => 2, :delimiter => ','
   end
 
   def channel

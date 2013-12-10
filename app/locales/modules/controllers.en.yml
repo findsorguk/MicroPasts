@@ -9,10 +9,10 @@ en:
           cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
           no_reward: "No perks! I just want to help out the project!"
         create:
-          error: 'Oh noez! There was an error processing your contribution. Please try again.'
+          error: 'There was an error processing your contribution. Please try again.'
         credits_checkout:
-          no_credits: "You don't have enough credits to help greenlight this project."
-          success: "Your back was successfully made. Thanks a lot!"
+          no_credits: "You do not have enough credits to help greenlight this project."
+          success: "Your backing contribution was successfully made. Thanks a lot!"
         pay:
           credit_card_description: "Back project %{project_name} with %{value} (plus fees)"
           paypal_description: "Back project %{project_name} with %{value} (plus fees)"
