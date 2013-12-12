@@ -14,17 +14,12 @@ en:
         sign_in: 'Sign in'
       hero:
         title: 'Invest in heritage projects that <strong>you</strong> care about.'
-        subtitle: "You're the solution you've been waiting for."
       how-it-works:
         one:
-          headline: 'For Companies'
-          text: 'MicroPasts provides an opportunity for your company to make a good impression and help communities.'
-          button: 'Coming Soon'
-        two:
           headline: 'For Communities'
           text: "If you have heritage projects in need of new funding sources, you've come to the right place."
           button: 'Raise Money'
-        three:
+        two:
           headline: 'For Individuals'
-          text: 'Do you want to earn rewards or perks while enhancing cities? What you do matters. Welcome to MicroPasts.'
+          text: 'Do you want to earn rewards or perks while helping projects? What you do matters. Welcome to MicroPasts.'
           button: 'Find Projects'
