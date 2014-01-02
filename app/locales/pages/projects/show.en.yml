@@ -8,9 +8,13 @@ en:
       status-bar:
         goal: 'Goal: %{value}'
         total_backers: '%{value} backers'
+<<<<<<< HEAD
         see_all_backers: 'See all the MicroPasts members behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
+=======
+        contribute: 'Contribute'
+>>>>>>> upstream/master
       tabs:
         about: 'About'
         updates: 'Updates'
@@ -35,13 +39,14 @@ en:
           successful: "This project was successful and was funded on %{date}"
           waiting_funds: "This project recently closed and will be funded."
           draft: "This project is in draft mode and is not open to backers yet."
-      make_contribution: 'Contribute'
+      contribute: 'Contribute'
       edit: 'Edit campaign'
       share:
         title: 'Get your friends involved'
       no-neighbors: "No members yet."
       author:
         about: 'About %{name}'
+      in_partnership_with: 'In Partnership With'
     video_embed:
       a_project_by_html: "A project by %{link} on"
     share:

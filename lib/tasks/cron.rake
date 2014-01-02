@@ -42,6 +42,20 @@ task :index_rewards_versions => :environment do
   end
 end
 
+
+desc "Create reward title"
+task :create_reward_title => :environment do
+   Project.all.each do |project|
+    puts "PROJECT: #{project.id} -- #{project.name}"
+    i = 0
+    project.rewards.rank(:row_order).each do |reward|
+      i += 1
+      puts "REWARD LEVEL: #{i} -- #{reward.minimum_value} -- ID: #{reward.id}"
+      reward.update_attributes(title: "Level #{i}") unless reward.title.present?
+    end
+  end
+end
+
 desc "Update video_embed_url column"
 task :fill_embed_url => :environment do
   Project.where('video_url is not null and video_embed_url is null').each do |project|
@@ -96,6 +110,7 @@ task :migrate_company_users_logo => :environment do
   users.each do |user|
     begin
       user.company_logo.recreate_versions!
+      user.save!
       puts "Recreating versions: #{user.id} - #{user.company_name}"
     rescue Exception => e
       puts "Original image not found"
@@ -168,3 +183,34 @@ task :fix_payment_method_from_old_backers => :environment do
 
 end
 
+
+desc "Migrate Company to Organization"
+task :migrate_company_to_organization => :environment do
+  users = User.where(profile_type: 'company')
+
+  users.each do |user|
+    puts "USER #{user.id}"
+    user.profile_type = 'organization'
+    user.create_organization(name: user.company_name, remote_image_url: user.company_logo.url)
+    saved = user.save
+    puts "Saving user.... #{saved}"
+    puts "ERROR: #{user.errors.messages.inspect}" if saved == false
+  end
+end
+
+desc "Fix twitter url"
+task :fix_twitter_url => :environment do
+  users = User.where('twitter_url is not null')
+
+  users.each do |user|
+    if user.twitter_url.present?
+      puts "USER #{user.id}"
+      unless user.twitter_url[/\Ahttp:\/\/twitter.com/] || user.twitter_url[/\Ahttps:\/\/twitter.com/]
+        user.twitter_url = "http://twitter.com/#{user.twitter_url}"
+        saved = user.save
+        puts "Saving user.... #{saved} #{user.twitter_url}"
+        puts "ERROR: #{user.errors.messages.inspect}" if saved == false
+      end
+    end
+  end
+end

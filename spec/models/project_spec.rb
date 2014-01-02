@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Project do
   let(:project){ build(:project, goal: 3000) }
   let(:user){ create(:user) }
-  let(:channel){ create(:channel, email: user.email, users: [ user ]) }
+  let(:channel){ create(:channel, user: user) }
   let(:channel_project){ create(:project, channels: [ channel ]) }
 
   describe "associations" do
@@ -49,7 +49,7 @@ describe Project do
       project_03
     end
 
-    context "when have confirmed backers today" do
+    pending "when have confirmed backers today" do
       before do
 
         #TODO: need to investigate this timestamp issue when
@@ -102,19 +102,6 @@ describe Project do
     end
     subject { Project.locations }
     it { should have(2).items }
-  end
-
-  describe '.near_of' do
-    before do
-      3.times { create(:project, address_state: 'MG') }
-      6.times { create(:project, address_state: 'SP') }
-    end
-
-    let(:state) { 'MG' }
-
-    subject { Project.near_of(state) }
-
-    it { should have(3).itens }
   end
 
   describe '.featured' do

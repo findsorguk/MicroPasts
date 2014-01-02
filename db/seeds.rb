@@ -40,6 +40,7 @@ puts 'Seeding the database...'
    })
  end
 
+<<<<<<< HEAD
 [
   'confirm_backer','payment_slip','project_success','backer_project_successful',
   'backer_project_unsuccessful','project_received', 'project_received_channel', 'updates','project_unsuccessful',
@@ -51,6 +52,8 @@ puts 'Seeding the database...'
 #  NotificationType.find_or_create_by(name: name)
 end
 
+=======
+>>>>>>> upstream/master
 {
   company_name: 'Micropasts',
   company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',

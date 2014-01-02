@@ -1,5 +1,11 @@
 .user-profile-page
-  header.hero
+  header.map
+    min-height: +emCalc(330px)
+    .map-canvas
+      width: 100%
+      height: +emCalc(330px)
+
+  header.hero, header.map
     position: relative
 
   .profile-image
@@ -10,10 +16,10 @@
     margin-bottom: -75px
     margin-left: -75px
     background: white
-    &.personal
-      +avatar-position(150px)
-    &.company
-      +avatar-position(150px, 320px)
+    &.organization, &.channel
+      width: 312px
+      height: 162px
+      margin-left: -150px
 
   section.content
     padding: 1.5em 0

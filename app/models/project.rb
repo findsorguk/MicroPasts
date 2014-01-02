@@ -50,7 +50,6 @@ class Project < ActiveRecord::Base
 
   # Used to simplify a has_scope
   scope :successful, ->{ with_state('successful') }
-  scope :soon, -> { with_state('soon') }
   scope :with_project_totals, -> { joins('LEFT OUTER JOIN project_totals pt ON pt.project_id = projects.id') }
   scope :by_progress, ->(progress) { joins(:project_total).where("project_totals.pledged >= projects.goal*?", progress.to_i/100.to_f) }
   scope :by_user_email, ->(email) { joins('JOIN users as u ON u.id = projects.user_id').where("u.email = ?", email) }
@@ -59,26 +58,12 @@ class Project < ActiveRecord::Base
   scope :by_category_id, ->(id) { where(category_id: id) }
   scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :user_name_contains, ->(term) { joins(:user).where("unaccent(upper(users.name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
-  #scope :order_table, ->(sort) {
-    #if sort == 'desc'
-      #order('goal desc')
-    #elsif sort == 'asc'
-      #order('goal asc')
-    #else
-      #order('created_at desc')
-    #end
-  #}
-
   scope :featured, -> { not_soon.visible.where(featured: true).limit(1) }
-  scope :near_of, ->(address_state) { where("lower(address_state) = lower(?)", address_state) }
-
   scope :by_goal, ->(goal) { where(goal: goal) }
   scope :by_online_date, ->(online_date) { where("online_date::date = ?", online_date.to_date) }
   scope :by_expires_at, ->(expires_at) { where("projects.expires_at::date = ?", expires_at.to_date) }
   scope :by_updated_at, ->(updated_at) { where("updated_at::date = ?", updated_at.to_date) }
   scope :by_permalink, ->(p) { without_state('deleted').where("lower(permalink) = lower(?)", p) }
-  scope :by_category_id, ->(id) { where(category_id: id) }
-  scope :name_contains, ->(term) { where("unaccent(upper(name)) LIKE ('%'||unaccent(upper(?))||'%')", term) }
   scope :to_finish, ->{ expired.with_states(['online', 'waiting_funds']) }
   scope :visible, -> { without_states(['draft', 'rejected', 'deleted', 'in_analysis']) }
   scope :financial, -> { with_states(['online', 'successful', 'waiting_funds']).where("projects.expires_at > (current_timestamp - '15 days'::interval)") }
@@ -89,6 +74,7 @@ class Project < ActiveRecord::Base
   scope :expiring, -> { not_expired.where("projects.expires_at <= (current_timestamp + interval '2 weeks')") }
   scope :not_expiring, -> { not_expired.where("NOT (projects.expires_at <= (current_timestamp + interval '2 weeks'))") }
   scope :recent, -> { where("(current_timestamp - projects.online_date) <= '5 days'::interval") }
+  scope :soon, -> { with_state('soon') }
   scope :not_soon, -> { where("projects.state NOT IN ('soon')") }
   scope :order_for_search, ->{ reorder("
                                      CASE projects.state
@@ -97,15 +83,6 @@ class Project < ActiveRecord::Base
                                      WHEN 'successful' THEN 3
                                      WHEN 'failed' THEN 4
                                      END ASC, projects.online_date DESC, projects.created_at DESC") }
-  scope :order_for_admin, -> {
-    reorder("
-            CASE projects.state
-            WHEN 'in_analysis' THEN 1
-            WHEN 'waiting_funds' THEN 2
-            WHEN 'successful' THEN 3
-            WHEN 'failed' THEN 4
-            END ASC, projects.online_date DESC, projects.created_at DESC")
-  }
 
   scope :backed_by, ->(user_id){
     where("id IN (SELECT project_id FROM backers b WHERE b.state = 'confirmed' AND b.user_id = ?)", user_id)
@@ -233,7 +210,7 @@ class Project < ActiveRecord::Base
   end
 
   def new_draft_recipient
-    email = last_channel.try(:email) || ::Configuration[:email_projects]
+    email = last_channel.try(:user).try(:email) || ::Configuration[:email_projects]
     User.where(email: email).first
   end
 

@@ -25,18 +25,9 @@ GIT
       rinku (~> 1.5.0)
 
 GIT
-  remote: git://github.com/josemarluedke/initjs.git
-  revision: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
-  ref: 03db7eada95779edbd151c3d8441b3e00f9e2ea3
-  specs:
-    initjs (2.0.0.beta1)
-      jquery-rails
-      rails (>= 3.1)
-
-GIT
   remote: git://github.com/luminopolis/catarse_credit_card_net.git
-  revision: 42aede03e0e6333a638afccd7d72de545781b233
-  ref: 42aede03e0e6333a638afccd7d72de545781b233
+  revision: 7413ebaba40505881e3366b26b4238981d82d67a
+  ref: 7413ebaba40505881e3366b26b4238981d82d67a
   specs:
     catarse_credit_card_net (0.0.1)
       authorize-net (~> 1.5.2)
@@ -44,8 +35,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_echeck_net.git
-  revision: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
-  ref: dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a
+  revision: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
+  ref: 93f853aea5a3ca8fa60e1618b6fbc935483ab81b
   specs:
     catarse_echeck_net (0.0.1)
       authorize-net (~> 1.5.2)
@@ -53,8 +44,8 @@ GIT
 
 GIT
   remote: git://github.com/luminopolis/catarse_paypal_express.git
-  revision: efac34d9468429c588733bfda75aeeca74d8ad68
-  ref: efac34d9468429c588733bfda75aeeca74d8ad68
+  revision: d2382b1c7c3cb5f230b901776aa08fe827acce98
+  ref: d2382b1c7c3cb5f230b901776aa08fe827acce98
   specs:
     catarse_paypal_express (2.1.0)
       activemerchant (>= 1.34.0)
@@ -150,6 +141,7 @@ GEM
     chartkick (1.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    choice (0.1.6)
     chunky_png (1.2.9)
     cliver (0.2.2)
     coderay (1.1.0)
@@ -164,8 +156,8 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-rails (2.0.alpha.0)
-      compass (>= 0.12.2, < 0.14)
+    compass-rails (1.1.2)
+      compass (>= 0.12.2)
     connection_pool (1.2.0)
     coveralls (0.7.0)
       multi_json (~> 1.3)
@@ -242,6 +234,9 @@ GEM
     inherited_resources (1.4.1)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0.0.rc)
+    initjs (2.0.0)
+      jquery-rails
+      rails (>= 3.1)
     jasmine-core (1.3.1)
     jasmine-rails (0.4.9)
       jasmine-core (~> 1.3)
@@ -345,6 +340,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.2)
       sprockets-rails (~> 2.0.0)
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
     rails_12factor (0.0.2)
@@ -383,6 +383,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-graphviz (1.0.9)
     ruby-hmac (0.4.0)
     ruby-ole (1.2.11.7)
     rubyzip (0.9.9)
@@ -515,7 +516,7 @@ DEPENDENCIES
   catarse_paypal_express!
   chartkick (= 1.2.0)
   coffee-rails (~> 4.0.0)
-  compass-rails (~> 2.0.alpha.0)
+  compass-rails
   coveralls
   database_cleaner
   devise (~> 3.1.2)
@@ -536,7 +537,7 @@ DEPENDENCIES
   high_voltage
   httpclient (>= 2.2.5)
   inherited_resources (~> 1.4.1)
-  initjs!
+  initjs (~> 2.0.0)
   jasmine-rails (~> 0.4.6)
   jquery-rails (~> 3.0.4)
   kaminari
@@ -557,6 +558,7 @@ DEPENDENCIES
   protected_attributes (~> 1.0.5)
   pry
   rails (= 4.0.2)
+  rails-erd
   rails-observers (~> 0.1.2)
   rails_12factor
   ranked-model

@@ -25,8 +25,6 @@
           = t('.how-it-works.three.text')
           = link_to t('.how-it-works.three.button'), discover_path, class: 'button'
 
-
-
   section.projects
     .row
       section.recommended
@@ -53,11 +51,9 @@
             = select_tag :city, options_for_select(@project_locations, @city), class: 'change-city', id: 'customDropdown', data: { 'projects-path' => near_projects_path }
 
         .row.content
-          - if @near_projects.any?
-            - for project in @near_projects
-              = render 'project', project: project
-          - else
-            .large-12.columns = t('.no_projects_near', city: @city)
+          - for project in @near_projects
+            = render 'project', project: project
+          = render 'projects/start_one', projects: @near_projects.size if @near_projects.size < 4
 
       - if @ending_soon.any?
         section.ending-soon
@@ -76,6 +72,22 @@
                 = t('words.see_more')
                 i.icon-et-right-circled
 
+      - if @successful.any?
+        section.successful
+          h3
+            = link_to discover_path(filter: 'successful') do
+              i.icon-et-thumbs-up
+              = t('.successful')
+
+          .row
+            - for project in @successful
+              = render 'project', project: project
+
+          .text-right
+            = link_to discover_path(filter: 'successful'), class: 'see-more' do
+              = t('words.see_more')
+              i.icon-et-right-circled
+
       - if @coming_soon.any?
         section.coming-soon
           h3
@@ -92,7 +104,16 @@
               = link_to discover_path(filter: 'soon'), class: 'see-more' do
                 = t('words.see_more')
                 i.icon-et-right-circled
+      - if @channels.any?
+        section.channels
+          .row
+            .large-12.columns
+              h3
+                i.icon-et-megaphone
+                = t('.channels')
 
+          .row
+            = render @channels
   section.press
     .row
       - @press_assets.each do |asset|

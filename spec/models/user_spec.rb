@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe User do
+  before { UserUploader.any_instance.stub(:download!) }
   let(:user){ create(:user) }
   let(:unfinished_project){ create(:project, state: 'online') }
   let(:successful_project){ create(:project, state: 'online') }
@@ -17,8 +18,11 @@ describe User do
     it{ should have_many(:oauth_providers).through(:authorizations) }
     it{ should have_many :channels_subscribers }
     it{ should have_one :user_total }
-    it{ should belong_to :channel }
     it{ should have_and_belong_to_many :subscriptions }
+    it{ should have_one :channel }
+    it{ should have_one :organization }
+    it{ should have_many :channel_members }
+    it{ should have_many :channels }
   end
 
   describe "validations" do
@@ -32,7 +36,7 @@ describe User do
     it{ should validate_uniqueness_of(:email) }
   end
 
-  describe "profile types" do
+  describe "profile_types" do
     let(:user) { create(:user) }
 
     describe "#personal?" do
@@ -43,12 +47,12 @@ describe User do
       end
     end
 
-    describe "#company" do
-      let(:user) { create(:user, profile_type: 'company') }
+    describe "#organization?" do
+      let(:user) { create(:user, profile_type: 'organization') }
 
-      subject { user.company? }
+      subject { user.organization? }
 
-      context "when change profile type to company" do
+      context "when change profile_type to organization" do
         it { should be_true }
       end
     end
@@ -187,73 +191,22 @@ describe User do
     end
   end
 
-
-  describe ".create_with_omniauth" do
+  describe ".create_from_hash" do
     let(:auth)  do {
-        'provider' => "twitter",
-        'uid' => "foobar",
-        'info' => {
-          'name' => "Foo bar",
-          'email' => 'another_email@anotherdomain.com',
-          'nickname' => "foobar",
-          'description' => "Foo bar's bio".ljust(200),
-          'image' => "image.png"
-        }
+      'provider' => "facebook",
+      'uid' => "foobar",
+      'info' => {
+        'name' => "Foo bar",
+        'email' => 'another_email@anotherdomain.com',
+        'nickname' => "foobar",
+        'description' => "Foo bar's bio".ljust(200),
+        'image' => "https://graph.facebook.com/foobar/picture?type=large"
       }
+    }
     end
-    let(:created_user){ User.create_with_omniauth(auth) }
-    let(:oauth_provider){ OauthProvider.create! name: 'twitter', key: 'dummy_key', secret: 'dummy_secret' }
-    let(:oauth_provider_fb){ OauthProvider.create! name: 'facebook', key: 'dummy_key', secret: 'dummy_secret' }
-    before{ oauth_provider }
-    before{ oauth_provider_fb }
-    subject{ created_user }
+    subject{ User.create_from_hash(auth) }
+    it{ should be_persisted }
     its(:email){ should == auth['info']['email'] }
-    its(:name){ should == auth['info']['name'] }
-    its(:nickname){ should == auth['info']['nickname'] }
-    its(:bio){ should == auth['info']['description'][0..139] }
-
-    describe "when user is merging facebook account" do
-      let(:user) { create(:user, name: 'Test', email: 'test@test.com') }
-      let(:created_user){ User.create_with_omniauth(auth, user) }
-
-      subject { created_user }
-
-      its(:email) { should == 'test@test.com' }
-      it { subject.authorizations.first.uid.should == auth['uid'] }
-    end
-    #describe "when user is not logged in and logs in with a facebook account with the same email" do
-      #let(:user) { create(:user, name: 'Test', email: 'another_email@anotherdomain.com') }
-      #let(:created_user){ user; User.create_with_omniauth(auth) }
-
-      #subject { created_user }
-
-      #its(:id) { should == user.id }
-      #its(:email) { should == 'another_email@anotherdomain.com' }
-      #it { subject.authorizations.first.uid.should == auth['uid'] }
-    #end
-
-    describe "created user's authorizations" do
-      subject{ created_user.authorizations.first }
-      its(:uid){ should == auth['uid'] }
-      its(:oauth_provider_id){ should == oauth_provider.id }
-    end
-
-    context "when user is from facebook" do
-      let(:auth)  do {
-        'provider' => "facebook",
-        'uid' => "foobar",
-        'info' => {
-          'name' => "Foo bar",
-          'email' => 'another_email@anotherdomain.com',
-          'nickname' => "foobar",
-          'description' => "Foo bar's bio".ljust(200),
-          'image' => "image.png"
-        }
-      }
-      end
-      it{ should be_persisted }
-      its(:email){ should == auth['info']['email'] }
-    end
   end
 
   describe ".create" do
@@ -261,12 +214,53 @@ describe User do
       User.create! do |u|
         u.email = 'diogob@gmail.com'
         u.password = '123456'
-        u.twitter = '@dbiazus'
-        u.facebook_link = 'facebook.com/test'
+        u.twitter_url = 'http://twitter.com/dbiazus'
+        u.facebook_url = 'http://facebook.com/test'
       end
     end
-    its(:twitter){ should == 'dbiazus' }
-    its(:facebook_link){ should == 'http://facebook.com/test' }
+    its(:twitter_url){ should == 'http://twitter.com/dbiazus' }
+    its(:facebook_url){ should == 'http://facebook.com/test' }
+  end
+
+  describe '#update_social_info' do
+    let(:base_auth)  do {
+      'uid' => "foobar",
+      'info' => {
+        'name' => "Foo bar",
+        'email' => 'another_email@anotherdomain.com',
+        'nickname' => "foobar",
+        'description' => "Foo bar's bio".ljust(200),
+        'image' => "https://graph.facebook.com/foobar/picture?type=large",
+        'urls' => {
+          'public_profile' => 'http://linkedin.com/in/foo_bar'
+        }
+      }
+    }
+    end
+    let(:user) { create(:user) }
+    subject { user.reload }
+    before { user.update_social_info(auth) }
+
+    context 'when provider is facebook' do
+      let(:auth) { base_auth.merge({ 'provider' => 'facebook' }) }
+      its(:twitter_url) { should be_nil }
+      its(:linkedin_url) { should be_nil }
+      its(:facebook_url) { should eq 'http://facebook.com/foobar' }
+    end
+
+    context 'when provider is twiiter' do
+      let(:auth) { base_auth.merge({ 'provider' => 'twitter' }) }
+      its(:twitter_url) { should eq 'http://twitter.com/foobar' }
+      its(:linkedin_url) { should be_nil }
+      its(:facebook_url) { should be_nil }
+    end
+
+    context 'when provider is linkedin' do
+      let(:auth) { base_auth.merge({ 'provider' => 'linkedin' }) }
+      its(:twitter_url) { should be_nil }
+      its(:linkedin_url) { should eq 'http://linkedin.com/in/foo_bar' }
+      its(:facebook_url) { should be_nil }
+    end
   end
 
   describe "#total_backed_projects" do
@@ -363,18 +357,6 @@ describe User do
     context "when user do not have a FB authorization" do
       let(:user){ create(:user) }
       it{ should == nil }
-    end
-  end
-
-  describe "#fix_facebook_link" do
-    subject{ user.facebook_link }
-    context "when user provides invalid url" do
-      let(:user){ create(:user, facebook_link: 'facebook.com/foo') }
-      it{ should == 'http://facebook.com/foo' }
-    end
-    context "when user provides valid url" do
-      let(:user){ create(:user, facebook_link: 'http://facebook.com/foo') }
-      it{ should == 'http://facebook.com/foo' }
     end
   end
 end

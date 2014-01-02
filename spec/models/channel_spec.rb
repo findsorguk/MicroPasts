@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Channel do
   describe "Validations & Assoaciations" do
 
-    [:name, :description, :permalink].each do |attribute|
+    [:name, :description, :permalink, :user].each do |attribute|
       it { should validate_presence_of      attribute }
       it { should allow_mass_assignment_of  attribute }
     end
@@ -19,9 +19,11 @@ describe Channel do
 
     it { should have_many :subscriber_reports }
     it { should have_many :channels_subscribers }
-    it { should have_many :users }
+    it { should belong_to :user }
     it { should have_and_belong_to_many :projects }
     it { should have_and_belong_to_many :subscribers }
+    it { should have_many :channel_members }
+    it { should have_many :members }
   end
 
   describe ".by_permalink" do
@@ -87,6 +89,19 @@ describe Channel do
 
     it "should projects in more days online ascending order" do
       expect(channel.projects).to eq([project2, project1])
+    end
+  end
+
+  describe "#update_video_embed_url" do
+    let(:channel) { create(:channel) }
+    before do
+      channel.video_url = 'http://vimeo.com/49584778'
+      channel.video.should_receive(:embed_url).and_call_original
+      channel.update_video_embed_url
+    end
+
+    it "should store the new embed url" do
+      channel.video_embed_url.should == 'player.vimeo.com/video/49584778'
     end
   end
 end

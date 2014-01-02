@@ -14,8 +14,7 @@ class ProjectsController < ApplicationController
 
   def index
     @city = user_city
-    @project_locations = Project.with_state('online').locations
-    @project_locations = @project_locations.concat([@city]) unless @project_locations.include?(@city)
+    @project_locations = project_locations(@city)
 
     used_ids = [0]
     @featured = Project.with_state('online').featured.limit(1).first
@@ -24,18 +23,20 @@ class ProjectsController < ApplicationController
     @recommended = Project.with_state('online').recommended.home_page.limit(1).where('id NOT IN (?)', used_ids).first
     used_ids << @recommended.id if @recommended
 
-    @near_projects = Project.with_state('online').near(@city, 50).visible.order('distance').limit(4)
+    @near_projects = Project.with_state('online').near(@city, 100).visible.order('distance').limit(4)
     used_ids += @near_projects.map(&:id) if @near_projects.any?
 
+    @successful = Project.visible.successful.home_page.limit(4)
     @ending_soon = Project.expiring.home_page.where('id NOT IN (?)', used_ids).limit(4)
-    @coming_soon = Project.soon.home_page.limit(8)
+    @coming_soon = Project.soon.home_page.limit(4)
+    @channels = Channel.with_state('online').order('RANDOM()').limit(4)
     @press_assets = PressAsset.order('created_at DESC').limit(5)
   end
 
   def near
     raise ActionController::UnknownController unless request.xhr?
-    projects = apply_scopes(Project).with_state('online').near(params[:location], 30).visible.order('distance').page(params[:page]).per(4)
-    render partial: 'project', collection: projects, layout: false
+    @projects = apply_scopes(Project).with_state('online').near(params[:location], 100).visible.order('distance').page(params[:page]).per(4)
+    render layout: false
   end
 
   def create
@@ -100,7 +101,7 @@ class ProjectsController < ApplicationController
 
   def embed_panel
     @project = resource
-    render layout: false
+    render layout: !request.xhr?
   end
 
   def send_reward_email
@@ -126,5 +127,11 @@ class ProjectsController < ApplicationController
     else
       'London, UK'
     end
+  end
+
+  def project_locations(current_city)
+    locations = Project.with_state('online').locations
+    locations.concat([current_city]) unless locations.include?(current_city)
+    locations
   end
 end

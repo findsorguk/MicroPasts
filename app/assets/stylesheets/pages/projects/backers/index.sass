@@ -1,15 +1,18 @@
 .project-page
   .backers-page
     .backer
+      padding: +emCalc(15px)
+      border: 1px solid $border-color
       margin-bottom: +emCalc(20px)
-      .avatar
-        border-radius: 50%
+      p
+        overflow: hidden
       .name
-        margin-top: +emCalc(20px)
-
+        margin-top: +emCalc(30px)
+      &.with-note
+        .name
+          margin-top: 0
       .custom-tooltip
         float: left
-
       .infos
         margin-top: +emCalc(5px)
         i

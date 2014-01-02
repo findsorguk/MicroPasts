@@ -10,6 +10,43 @@ describe Ability do
     it { should be_able_to(:access, :all) }
   end
 
+  describe 'when project has a channel' do
+    let(:project) { FactoryGirl.create(:project, channels: [channel]) }
+    let(:user) { create(:user, admin: false) }
+    let(:channel) { create(:channel, user: user) }
+
+    context 'when user is not the channel owner' do
+      let(:channel) { create(:channel, user: create(:user)) }
+      it { should_not be_able_to(:update, project) }
+    end
+
+    context 'when user is the channel' do
+      it { should be_able_to(:update, project) }
+    end
+
+    context 'when user is other channel' do
+      let(:channel) { create(:channel, user: create(:user)) }
+      it { should_not be_able_to(:update, project) }
+    end
+
+    describe 'channel members' do
+      let(:channel) { create(:channel, user: create(:user)) }
+      let(:reward) { FactoryGirl.create(:reward, project: project) }
+      before { channel.members << user; channel.save }
+
+      it { should be_able_to(:update, project) }
+      it { should be_able_to(:update, project, :about) }
+      it { should be_able_to(:update, project, :video_url) }
+      it { should be_able_to(:update, project, :headline) }
+      it { should be_able_to(:update, project, :uploaded_image) }
+      it { should be_able_to(:destroy, reward) }
+      it { should be_able_to(:update, reward, :days_to_delivery) }
+      it { should be_able_to(:update, reward, :description) }
+      it { should be_able_to(:update, reward, :title) }
+      it { should be_able_to(:update, reward, :maximum_backers) }
+    end
+  end
+
   context "When user is project owner" do
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project, user: user) }
@@ -33,6 +70,7 @@ describe Ability do
       it { should be_able_to(:destroy, reward) }
       it { should be_able_to(:update, reward, :days_to_delivery) }
       it { should be_able_to(:update, reward, :description) }
+      it { should be_able_to(:update, reward, :title) }
       it { should be_able_to(:update, reward, :maximum_backers) }
 
       context "and someone make a back and select a reward" do
@@ -103,11 +141,13 @@ describe Ability do
     let(:user) { FactoryGirl.create(:user) }
     let(:project) { FactoryGirl.create(:project) }
     let(:reward) { FactoryGirl.create(:reward, project: project) }
+    let(:authorization) { FactoryGirl.create(:authorization, user: user) }
 
     it { should_not be_able_to(:access, :all) }
     it { should_not be_able_to(:update, project) }
     it { should be_able_to(:create, :projects) }
     it { should_not be_able_to(:update, reward)}
+    it { should be_able_to(:destroy, authorization)}
   end
 
   context "When is a guest" do

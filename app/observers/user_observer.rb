@@ -6,12 +6,7 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_create(user)
-    Notification.notify_once(:new_user_registration, user, {user_id: user.id}, {user: user})
-    user.update(newsletter: true)
-  end
-
-  def before_save(user)
-    user.fix_twitter_user
-    user.fix_facebook_link
+    return if user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/
+    WelcomeWorker.perform_async(user.id)
   end
 end

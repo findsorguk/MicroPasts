@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name, :backs_text, :twitter_link, :gravatar_url,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
@@ -51,17 +51,20 @@ class User < ActiveRecord::Base
     :cpf,
     :state_inscription,
     :locale,
-    :twitter,
-    :facebook_link,
-    :other_link,
+    :twitter_url,
+    :facebook_url,
+    :linkedin_url,
+    :other_url,
     :moip_login,
     :new_project,
     :profile_type,
     :company_name,
     :company_logo,
-    :linkedin_url,
     :address,
-    :hero_image
+    :hero_image,
+    :remote_uploaded_image_url,
+    :organization_attributes,
+    :channel_attributes
 
   attr_accessor :address
 
@@ -83,10 +86,16 @@ class User < ActiveRecord::Base
   has_many :backs, class_name: "Backer"
   has_one :user_total
   has_and_belongs_to_many :recommended_projects, join_table: :recommendations, class_name: 'Project'
+  has_one :organization, dependent: :destroy
+  accepts_nested_attributes_for :organization
 
 
   # Channels relation
   has_and_belongs_to_many :subscriptions, join_table: :channels_subscribers, class_name: 'Channel'
+  has_one :channel
+  has_many :channel_members, dependent: :destroy
+  has_many :channels, through: :channel_members, source: :channel
+  accepts_nested_attributes_for :channel
 
   accepts_nested_attributes_for :unsubscribes, allow_destroy: true rescue puts "No association found for name 'unsubscribes'. Has it been defined yet?"
 
@@ -132,7 +141,8 @@ class User < ActiveRecord::Base
 
   state_machine :profile_type, initial: :personal do
     state :personal, value: 'personal'
-    state :company, value: 'company'
+    state :organization, value: 'organization'
+    state :channel, value: 'channel'
   end
 
   def self.send_credits_notification
@@ -172,11 +182,6 @@ class User < ActiveRecord::Base
     [address_city, address_state].select { |a| a.present? }.compact.join(', ')
   end
 
-  def has_facebook_authentication?
-    oauth = OauthProvider.find_by_name 'facebook'
-    authorizations.where(oauth_provider_id: oauth.id).present? if oauth
-  end
-
   def decorator
     @decorator ||= UserDecorator.new(self)
   end
@@ -199,52 +204,16 @@ class User < ActiveRecord::Base
     "#{self.id}-#{self.display_name.parameterize}"
   end
 
-  def self.create_with_omniauth(auth, current_user = nil, auto_safe = true, user = new)
-    omniauth_email = (auth["info"]["email"] rescue nil)
-    omniauth_email = (auth["extra"]["user_hash"]["email"] rescue nil) unless omniauth_email
-    found_user = User.where(email: omniauth_email).first if auth['provider'] == 'facebook' && omniauth_email.present?
-
-    if current_user
-      user = current_user
-    elsif auth['provider'] == 'facebook' && omniauth_email.present? && found_user.present?
-      user = found_user
-      auto_safe = false
-    else
-      user.name = auth['info']['name']
-      user.email = omniauth_email
-      user.nickname = auth['info']['nickname']
-      user.bio = (auth['info']['description'][0..139] rescue nil)
-      user.locale = 'en'
-
-      if auth['provider'] == 'twitter'
-        user.twitter = auth['info']['nickname']
-        user.image_url = auth['info']['image'] if auth['info']['image'].present?
-      end
-
-      if auth['provider'] == 'linkedin'
-        user.linkedin_url = auth['info']['urls']['public_profile'] if auth['info']['urls'].present?
-        user.image_url = auth['info']['image'] if auth['info']['image'].present?
-      end
-
-      if auth['provider'] == 'facebook'
-        user.facebook_link = "http://facebook.com/#{auth['info']['nickname']}"
-        user.image_url = "https://graph.facebook.com/#{auth['uid']}/picture?type=large"
-      end
-    end
-    provider = OauthProvider.where(name: auth['provider']).first
-    user.authorizations.build(uid: auth['uid'], oauth_provider_id: provider.id) if provider
-    user.save! if auto_safe
-    user
-  end
-
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if auth = session[:omniauth]
-        auth["info"]["email"] = params[:email] if auth["info"]["email"].nil? || params[:email]
-        user = self.create_with_omniauth(auth, nil, false, user)
-      end
-      user
-    end
+  def self.create_from_hash(hash)
+    create!(
+      {
+        name: hash['info']['name'],
+        email: hash['info']['email'],
+        nickname: hash["info"]["nickname"],
+        bio: (hash["info"]["description"][0..139] rescue nil),
+        locale: I18n.locale.to_s
+      }
+    )
   end
 
   def total_backs
@@ -273,16 +242,6 @@ class User < ActiveRecord::Base
     Project.backed_by(self.id)
   end
 
-  def fix_twitter_user
-    self.twitter.gsub!(/@/, '') if self.twitter
-  end
-
-  def fix_facebook_link
-    if !self.facebook_link.blank?
-      self.facebook_link = ('http://' + self.facebook_link) unless self.facebook_link[/^https?:\/\//]
-    end
-  end
-
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
@@ -295,4 +254,20 @@ class User < ActiveRecord::Base
     !confirmed? and not (authorizations.first and authorizations.first.oauth_provider == OauthProvider.where(name: 'facebook').first)
   end
 
+  def update_social_info(hash)
+    self.update_attributes(social_info_from_hash(hash))
+  end
+
+  protected
+  def social_info_from_hash(hash)
+    info = {}
+    info[:twitter_url] = "http://twitter.com/#{hash['info']['nickname']}" if hash['provider'] == 'twitter'
+    info[:linkedin_url] = hash['info']['urls']['public_profile'] if hash['provider'] == 'linkedin'
+    info[:facebook_url] = "http://facebook.com/#{hash['info']['nickname']}" if hash['provider'] == 'facebook'
+    unless self.uploaded_image.present?
+      info[:remote_uploaded_image_url] = hash['info']['image'] if hash['info']['image'].present? && hash['provider'] != 'facebook'
+      info[:remote_uploaded_image_url] = "https://graph.facebook.com/#{hash['uid']}/picture?type=large" if hash['provider'] == 'facebook'
+    end
+    info
+  end
 end

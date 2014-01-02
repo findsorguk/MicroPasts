@@ -76,6 +76,7 @@ FactoryGirl.define do
 
   factory :reward do |f|
     f.association :project, factory: :project
+    f.title "Awesome Foo Bar"
     f.minimum_value 10.00
     f.description "Foo bar"
     f.days_to_delivery 10
@@ -130,8 +131,8 @@ FactoryGirl.define do
   end
 
   factory :channel do
+    user { create(:user, profile_type: 'channel') }
     name "Test"
-    email "email+channel@foo.bar"
     description "Lorem Ipsum"
     sequence(:permalink) { |n| "#{n}-test-page" }
   end
@@ -147,5 +148,14 @@ FactoryGirl.define do
     image File.open("#{Rails.root}/spec/fixtures/image.png")
   end
 
+  factory :tag do
+    name 'bike'
+  end
+
+  factory :organization do |f|
+    f.association :user
+    f.name 'Organization name'
+    f.image File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
 end
 

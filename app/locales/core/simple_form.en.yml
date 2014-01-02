@@ -17,25 +17,38 @@ en:
         password: 'Password'
         current_password: 'Current Password'
         bio: '140 characters or less...'
-        facebook_link: 'facebook.com/'
-        other_link: 'www.'
-        linkedin_url: 'linkedin.com/in/'
-        twitter: '@'
+        facebook_url: 'http://facebook.com/'
+        other_url: 'http://www.'
+        linkedin_url: 'http://linkedin.com/in/'
+        twitter_url: 'http://twitter.com/'
+      channel:
+        facebook: 'http://facebook.com/'
+        twitter: 'http://twitter.com/'
+        website: 'http://www.'
       profile:
         facebook: 'http://facebook.com/'
         twitter: 'http://twitter.com/'
         website: 'http://www.'
     labels:
+      channel:
+        how_it_works: 'About Us'
+      profile:
+        how_it_works: 'About Us'
       user:
         bio: 'Short Bio'
         password: 'New Password'
         newsletter: 'Receive occasional e-mail newsletters from MicroPasts'
         new_project: 'Email me when new projects are added to MicroPasts'
         profile_type: 'Display me as a'
-        phone_number: 'Mobile phone number'
+        phone_number: 'Phone number'
         address_street: 'Street'
         address_neighbourhood: 'Neighborhood'
+<<<<<<< HEAD
         address_zip_code: 'Zip or post code'
+=======
+        address_zip_code: 'Zip code'
+        other_url: 'Your website'
+>>>>>>> upstream/master
       project:
         name: 'Campaign Title'
         campaign_type: 'Campaign Type'

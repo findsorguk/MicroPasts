@@ -6,7 +6,7 @@ Catarse::Application.routes.draw do
 
   devise_for :users, path: '',
     path_names:   { sign_in: :login, sign_out: :logout, sign_up: :sign_up },
-    controllers:  { omniauth_callbacks: :omniauth_callbacks, passwords: :passwords }
+    controllers:  { omniauth_callbacks: :omniauth_callbacks }
 
 
   devise_scope :user do
@@ -94,7 +94,7 @@ Catarse::Application.routes.draw do
   end
 
   # Temporary
-  get '/projects/neuse-river-greenway-benches', to: redirect('/')
+  get '/projects/neuse-river-greenway-benches-draft', to: redirect('/projects/neuse-river-greenway-benches')
 
   resources :projects, except: [ :destroy ] do
     resources :faqs, controller: 'projects/faqs', only: [ :index, :create, :destroy ]
@@ -142,6 +142,7 @@ Catarse::Application.routes.draw do
       end
     end
 
+    resources :authorizations, controller: 'users/authorizations', only: [:destroy]
     resources :unsubscribes, only: [:create]
     member do
       get :profile,   to: 'users#edit'
@@ -160,6 +161,15 @@ Catarse::Application.routes.draw do
     resources :press_assets, except: [:show]
     resources :financials, only: [ :index ]
     resources :users, only: [ :index ]
+
+    resources :channels, except: [:show] do
+      member do
+        put 'push_to_draft'
+        put 'push_to_online'
+      end
+
+      resources :members, only: [:index, :new, :create, :destroy], controller: 'channels/members'
+    end
 
     resources :projects, only: [ :index, :update, :destroy ] do
       member do

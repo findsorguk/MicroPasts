@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   def show
+    return redirect_to root_url(subdomain: resource.channel.permalink) if resource.channel? && resource.channel.present?
     show!{
       fb_admins_add(@user.facebook_id) if @user.facebook_id
       @title = "#{@user.display_name}"
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user.build_organization unless @user.organization
     render :profile if request.xhr?
   end
 
@@ -37,11 +39,9 @@ class UsersController < ApplicationController
   def update_email
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('controllers.users.update.success')
-        session[:return_to] = nil if session[:return_to] == update_email_user_url(@user)
-        redirect_to (session[:return_to] || edit_user_path(@user))
-        session[:return_to] = nil
-        return
+        flash[:notice] = t('devise.confirmations.send_instructions')
+        sign_out current_user
+        redirect_to root_path
       end
       failure.html do
         flash[:notice] = @user.errors[:email].to_sentence if @user.errors[:email].present?
@@ -53,20 +53,19 @@ class UsersController < ApplicationController
   def update
     update! do |success,failure|
       success.html do
-        flash[:notice] = t('controllers.users.update.success')
+        flash[:notice] = update_success_flash_message
       end
       failure.html do
         flash[:error] = @user.errors.full_messages.to_sentence
       end
       success.json do
-        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), company_logo: @user.company_logo_url(:thumb) }
+        return render json: { status: :success, hero_image: @user.hero_image_url(:blur), uploaded_image: @user.uploaded_image_url(:thumb_avatar), :"organization_attributes[image]" => (@user.organization.image_url(:thumb) rescue nil ) }
       end
       failure.json do
         return render json: { status: :error }
       end
     end
-    return redirect_to settings_user_path(@user) if params[:settings]
-    return redirect_to edit_user_path(@user)
+    return redirect_to params[:settings] ? settings_user_path(@user) : edit_user_path(@user)
   end
 
   def update_password
@@ -77,5 +76,14 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors.full_messages.to_sentence
     end
     return redirect_to settings_user_path(@user)
+  end
+
+  protected
+  def update_success_flash_message
+    if (params['user']['email'] != @user.email rescue false) && params['user']['email'].present?
+      t('devise.confirmations.send_instructions')
+    else
+      t('controllers.users.update.success')
+    end
   end
 end

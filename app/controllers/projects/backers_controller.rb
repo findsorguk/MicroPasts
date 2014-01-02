@@ -19,66 +19,65 @@ class Projects::BackersController < ApplicationController
   def update
     resource.update_attributes(params[:backer])
     resource.update_user_billing_info
-    render json: {message: 'updated'}
+    render json: { message: 'updated' }
   end
 
   def show; end
 
   def new
-    unless parent.online?
-      flash[:failure] = t('controllers.projects.backers.new.cannot_back')
-      return redirect_to :root
-    end
+    return redirect_to :root, flash: { error: t('controllers.projects.backers.new.cannot_back') } unless parent.online?
 
-    @create_url = ::Configuration[:secure_review_host] ?
-      project_backers_url(@project, {host: ::Configuration[:secure_review_host], protocol: 'https'}) :
-      project_backers_path(@project)
-
-    @title = t('projects.backers.new.title', name: @project.name)
+    @create_url = create_url
     @backer = @project.backers.new(user: current_user)
-    empty_reward = Reward.new(minimum_value: 0, description: t('controllers.projects.backers.new.no_reward'))
     @rewards = [empty_reward] + @project.rewards.not_soon.remaining.order(:minimum_value)
 
-    # Select
-    if params[:reward_id] && (@selected_reward = @project.rewards.not_soon.find params[:reward_id]) && !@selected_reward.sold_out?
-      @backer.reward = @selected_reward
-      @backer.value = "%0.0f" % @selected_reward.minimum_value
+    if params[:reward_id] && (selected_reward = @project.rewards.not_soon.find(params[:reward_id])) && !selected_reward.sold_out?
+      @backer.reward = selected_reward
+      @backer.value = "%0.0f" % selected_reward.minimum_value
     end
   end
 
   def create
     @backer.user = current_user
     @backer.reward_id = nil if params[:backer][:reward_id].to_i == 0
-    create! do |success,failure|
-      failure.html do
-        flash[:failure] = t('controllers.projects.backers.create.error')
-        return redirect_to new_project_backer_path(@project)
-      end
+
+    create! do |success, failure|
       success.html do
-        flash.delete(:notice)
         session[:thank_you_backer_id] = @backer.id
-        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id)
+        return redirect_to edit_project_backer_path(project_id: @project, id: @backer.id), flash: { notice: nil }
+      end
+
+      failure.html do
+        return redirect_to new_project_backer_path(@project), flash: { failure: t('controllers.projects.backers.create.error') }
       end
     end
-    @thank_you_id = @project.id
   end
 
   def credits_checkout
-    if current_user.credits < @backer.value
-      flash[:failure] = t('controllers.projects.backers.credits_checkout.no_credits')
-      return redirect_to new_project_backer_path(@backer.project)
-    end
+    return redirect_to new_project_backer_path(@backer.project), flash: { failure: t('controllers.projects.backers.credits_checkout.no_credits') } if current_user.credits < @backer.value
 
     unless @backer.confirmed?
       @backer.update_attributes({ payment_method: 'Credits' })
       @backer.confirm!
     end
-    flash[:success] = t('controllers.projects.backers.credits_checkout.success')
-    redirect_to project_backer_path(parent, resource)
+
+    redirect_to project_backer_path(parent, resource), flash: { success: t('controllers.projects.backers.credits_checkout.success') }
   end
 
   protected
   def collection
     @backers ||= apply_scopes(end_of_association_chain).available_to_display.order("confirmed_at DESC").per(10)
+  end
+
+  def empty_reward
+    Reward.new(minimum_value: 0, description: t('controllers.projects.backers.new.no_reward'))
+  end
+
+  def create_url
+    if ::Configuration[:secure_review_host]
+      return project_backers_url(@project, {host: ::Configuration[:secure_review_host], protocol: 'https'})
+    else
+      return project_backers_path(@project)
+    end
   end
 end

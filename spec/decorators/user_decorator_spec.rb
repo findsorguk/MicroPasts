@@ -4,7 +4,7 @@ describe UserDecorator do
   describe "#display_name" do
     subject{ user.display_name }
 
-    context 'when profile type is personal' do
+    context 'when profile_type is personal' do
       context "when we only have a full name" do
         let(:user){ create(:user, name: nil, full_name: "Full Name") }
         it{ should == 'Full Name' }
@@ -26,16 +26,28 @@ describe UserDecorator do
       end
     end
 
+<<<<<<< HEAD
     context 'when profile type is company' do
       context "when we the company name" do
         let(:user){ create(:user, profile_type: 'company', company_name: 'MicroPasts') }
         it{ should == 'MicroPasts' }
+=======
+    context 'when profile_type is organization' do
+      context "when we the organization name" do
+        let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: 'Neighbor.ly' }) }
+        it{ should == 'Neighbor.ly' }
+>>>>>>> upstream/master
       end
 
-      context "when we have no company name" do
-        let(:user){ create(:user, profile_type: 'company', company_name: nil) }
+      context "when we have no organization name" do
+        let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: nil }) }
         it{ should == I18n.t('words.no_name') }
       end
+    end
+
+    context 'when profile_type is channel' do
+      let(:user){ create(:channel, name: 'Neighbor.ly').user }
+      it{ should == 'Neighbor.ly' }
     end
   end
 
@@ -49,11 +61,11 @@ describe UserDecorator do
   describe "#display_image" do
     subject{ user.display_image }
 
-    context 'when profile type is personal' do
+    context 'when profile_type is personal' do
       context "when we have an uploaded image" do
         let(:user){ build(:user, uploaded_image: 'image.png' )}
         before do
-          image = stub(url: 'image.png')
+          image = double(url: 'image.png')
           image.stub(:thumb_avatar).and_return(image)
           user.stub(:uploaded_image).and_return(image)
         end
@@ -71,32 +83,50 @@ describe UserDecorator do
       end
     end
 
-    context 'when profile type is company' do
-      context "when we have a company logo" do
-        let(:user){ build(:user, profile_type: 'company', company_logo: 'image.png' )}
+    context 'when profile_type is organization' do
+      context "when we have a organization image" do
+        let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: 'image.png'} )}
         before do
-          image = stub(url: 'image.png')
+          image = double(url: 'image.png')
           image.stub(:thumb).and_return(image)
           image.stub(:large).and_return(image)
-          user.stub(:company_logo).and_return(image)
+          user.organization.stub(:image).and_return(image)
         end
         it{ should == 'image.png' }
       end
 
-      context 'when we dont have a company logo' do
-        let(:user){ build(:user, profile_type: 'company', company_logo: nil )}
+      context 'when we dont have a organization image' do
+        let(:user){ build(:user, profile_type: 'organization', organization_attributes: { image: nil }) }
+        it{ should == '/assets/logo-blank.jpg' }
+      end
+    end
+
+    context 'when profile_type is channel' do
+      context "when we have a channel image" do
+        let(:user){ create(:channel, image: 'image.png').user }
+        before do
+          image = double(url: 'image.png')
+          image.stub(:thumb).and_return(image)
+          image.stub(:large).and_return(image)
+          user.channel.stub(:image).and_return(image)
+        end
+        it{ should == 'image.png' }
+      end
+
+      context 'when we dont have a organization image' do
+        let(:user){ create(:channel, image: nil).user }
         it{ should == '/assets/logo-blank.jpg' }
       end
     end
   end
 
   describe "#short_name" do
-    subject { user = create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet') }
+    subject { create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet') }
     its(:short_name) { should == 'My Name Is Lorem ...' }
   end
 
   describe "#medium_name" do
-    subject { user = create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet And This Is a Bit Name I Think') }
+    subject { create(:user, name: 'My Name Is Lorem Ipsum Dolor Sit Amet And This Is a Bit Name I Think') }
     its(:medium_name) { should == 'My Name Is Lorem Ipsum Dolor Sit Amet A...' }
   end
 
@@ -106,7 +136,7 @@ describe UserDecorator do
   end
 
   describe "#display_total_of_backs" do
-    subject { user = create(:user) }
+    subject { create(:user) }
     context "with confirmed backs" do
       before do
         create(:backer, state: 'confirmed', user: subject, value: 500.0)

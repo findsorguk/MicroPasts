@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails',    '4.0.2'
 
@@ -26,10 +26,17 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
+<<<<<<< HEAD
 #gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '42aede03e0e6333a638afccd7d72de545781b233'
 #gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: 'dba4e5d81ed33b8cfa90965ba1394e3ec0b3dc6a'
 gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: 'efac34d9468429c588733bfda75aeeca74d8ad68'
 #gem "authorize-net", "~> 1.5.2"
+=======
+gem 'catarse_credit_card_net', github: 'luminopolis/catarse_credit_card_net', ref: '7413ebaba40505881e3366b26b4238981d82d67a'
+gem 'catarse_echeck_net', github: 'luminopolis/catarse_echeck_net', ref: '93f853aea5a3ca8fa60e1618b6fbc935483ab81b'
+gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: 'd2382b1c7c3cb5f230b901776aa08fe827acce98'
+gem "authorize-net", "~> 1.5.2"
+>>>>>>> upstream/master
 
 # Decorators
 gem 'draper'
@@ -116,6 +123,7 @@ group :development do
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rails-erd'
   # Uncomment only for optimization, should be commented on master branch
   # gem 'rack-mini-profiler'
 end
@@ -140,13 +148,13 @@ end
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
 gem 'zurb-foundation', '~> 4.3.2'
 gem 'turbolinks'
 gem 'pjax_rails'
-gem 'initjs', github: 'josemarluedke/initjs', ref: '03db7eada95779edbd151c3d8441b3e00f9e2ea3'
+gem 'initjs', '~> 2.0.0'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum

@@ -15,14 +15,44 @@ describe UsersController do
   let(:current_user){ user }
 
   describe "PUT update" do
-    before do
-      put :update, id: user.id, locale: 'pt', user: { twitter: 'test' }
+    context 'when does not update the email' do
+      before do
+        put :update, id: user.id, locale: 'pt', user: { twitter_url: 'http://twitter.com/test' }
+      end
+      it("should update the user") do
+        user.reload
+        user.twitter_url.should ==  'http://twitter.com/test'
+      end
+      it{ should redirect_to edit_user_path(user) }
+      it { expect(flash[:notice]).to eq(I18n.t('controllers.users.update.success')) }
     end
-    it("should update the user") do
-      user.reload
-      user.twitter.should ==  'test'
+
+    context 'when does update the email' do
+      before do
+        put :update, id: user.id, locale: 'pt', user: { email: 'test-foobar@barfoo.com' }
+      end
+      it { expect(flash[:notice]).to eq(I18n.t('devise.confirmations.send_instructions')) }
+      it{ should redirect_to edit_user_path(user) }
     end
-    it{ should redirect_to edit_user_path(user) }
+
+    context 'as JSON format' do
+      context 'success' do
+        before do
+          put :update, id: user.id, locale: 'pt', user: { twitter_url: 'http://twitter.com/test' }, format: :json
+        end
+
+        its(:status){ should == 200 }
+      end
+
+      context 'failure' do
+        before do
+          put :update, id: user.id, locale: 'pt', user: { email: '' }, format: :json
+        end
+
+        its(:body) { should == { status: :error }.to_json }
+        its(:status){ should == 200 }
+      end
+    end
   end
 
   describe "PUT update_password" do
@@ -59,26 +89,173 @@ describe UsersController do
       it{ should render_template('set_email') }
     end
 
-    context "when email is valid and we have a session[:return_to]" do
-      let(:return_to){ '/foo' }
-      it{ should redirect_to return_to }
-      it{ session[:return_to].should be_nil }
-    end
-
     context "when email is valid" do
-      it("should update the user") do
-        user.reload
-        user.email.should ==  'new_email@bar.com'
+      context 'when account is not confirmed' do
+        it("should not update the user") do
+          user.reload
+          user.email.should == user.email
+        end
+        it{ should redirect_to root_path(user) }
       end
-      it{ should redirect_to edit_user_path(user) }
+
+      context 'when account is confirmed' do
+        it("should update the user") do
+          user.reload.confirm!
+          user.email.should == 'new_email@bar.com'
+        end
+        it{ should redirect_to root_path(user) }
+      end
     end
   end
 
   describe "GET show" do
-    before do
-      get :show, id: user.id, locale: 'pt'
+    context 'as a person/organization' do
+      before do
+        get :show, id: user.id, locale: 'pt'
+      end
+
+      it{ assigns(:fb_admins).should include(user.facebook_id.to_i) }
     end
 
-    it{ assigns(:fb_admins).should include(user.facebook_id.to_i) }
+    context 'as a channel' do
+      let(:channel) { create(:channel) }
+      before do
+        get :show, id: channel.user.id
+      end
+      it { should redirect_to(root_url(subdomain: channel.permalink)) }
+    end
+  end
+
+  describe "GET edit" do
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        get :edit, id: user
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm loggedn" do
+
+      context 'as normal request' do
+        before { get :edit, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:edit) }
+      end
+
+      context 'as xhr request' do
+        before { xhr :get, :edit, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:profile) }
+      end
+    end
+  end
+
+  describe "GET credits" do
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        get :credits, id: user
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm loggedn" do
+
+      context 'as normal request' do
+        before { get :credits, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:edit) }
+      end
+
+      context 'as xhr request' do
+        before { xhr :get, :credits, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:credits) }
+      end
+    end
+  end
+
+  describe "GET settings" do
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        get :settings, id: user
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm loggedn" do
+
+      context 'as normal request' do
+        before { get :settings, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:edit) }
+      end
+
+      context 'as xhr request' do
+        before { xhr :get, :settings, id: user }
+
+        its(:status){ should == 200 }
+
+        it 'should assigns the correct resource' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it { should render_template(:settings) }
+      end
+    end
+  end
+
+  describe "GET set_email" do
+    context "when I'm not logged in" do
+      let(:current_user){ nil }
+      before do
+        get :set_email
+      end
+      it{ should redirect_to new_user_session_path }
+    end
+
+    context "when I'm loggedn" do
+      before { get :set_email }
+
+      its(:status){ should == 200 }
+
+      it 'should assigns the correct resource' do
+        expect(assigns(:user)).to eq user
+      end
+
+      it { should render_template(:set_email) }
+    end
   end
 end
