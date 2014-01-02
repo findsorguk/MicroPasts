@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include Concerns::ExceptionHandler
   include Concerns::SocialHelpersHandler
 
-  layout :use_catarse_boostrap
+  layout :use_catarse_bootstrap
   protect_from_forgery
   before_filter :require_basic_auth
 
