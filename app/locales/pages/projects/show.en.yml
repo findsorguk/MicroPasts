@@ -8,13 +8,10 @@ en:
       status-bar:
         goal: 'Goal: %{value}'
         total_backers: '%{value} backers'
-<<<<<<< HEAD
         see_all_backers: 'See all the MicroPasts members behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
-=======
         contribute: 'Contribute'
->>>>>>> upstream/master
       tabs:
         about: 'About'
         updates: 'Updates'

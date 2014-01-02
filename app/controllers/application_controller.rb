@@ -15,13 +15,8 @@ class ApplicationController < ActionController::Base
   before_action :referal_it!
 
   before_filter do
-<<<<<<< HEAD
-    if current_user and current_user.email == "change-your-email+#{current_user.id}@micropasts.org"
-      redirect_to set_email_users_path unless controller_name == 'users'
-=======
-    if current_user and (current_user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/)
+    if current_user and (current_user.email =~ /change-your-email\+[0-9]+@micropasts\.org/)
       redirect_to set_email_users_path unless controller_name =~ /users|confirmations/
->>>>>>> upstream/master
     end
   end
 
@@ -55,13 +50,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
-<<<<<<< HEAD
-    if current_user and current_user.email == "change-your-email+#{current_user.id}@mciropasts.org"
-      return set_email_users_path
-    end
-
-=======
->>>>>>> upstream/master
     return_to = session[:return_to]
     session[:return_to] = nil
     (return_to || root_path)

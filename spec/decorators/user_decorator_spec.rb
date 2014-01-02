@@ -26,17 +26,10 @@ describe UserDecorator do
       end
     end
 
-<<<<<<< HEAD
-    context 'when profile type is company' do
-      context "when we the company name" do
-        let(:user){ create(:user, profile_type: 'company', company_name: 'MicroPasts') }
-        it{ should == 'MicroPasts' }
-=======
     context 'when profile_type is organization' do
       context "when we the organization name" do
         let(:user){ create(:user, profile_type: 'organization', organization_attributes: { name: 'Neighbor.ly' }) }
-        it{ should == 'Neighbor.ly' }
->>>>>>> upstream/master
+        it{ should == 'Micropasts' }
       end
 
       context "when we have no organization name" do

@@ -1,10 +1,6 @@
 - if @user
   - @title = t('.update_email_title')
-<<<<<<< HEAD
-  - if @user.email == "change-your-email+#{@user.id}@micropasts.org
-=======
-  - if @user.email =~ /change-your-email\+[0-9]+@neighbor\.ly/
->>>>>>> upstream/master
+  - if @user.email == "change-your-email+#{@user.id}@micropasts\.org
     - @user.email = nil
 - else
   - @title = t('.site_title')

@@ -5,8 +5,8 @@ describe ProjectsController do
   before{ Notification.unstub(:notify) }
   before{ Notification.unstub(:notify_once) }
   before{ controller.stub(:current_user).and_return(current_user) }
-  before{ Configuration[:base_url] = 'http://catarse.me' }
-  before{ Configuration[:email_projects] = 'foo@bar.com' }
+  before{ Configuration[:base_url] = 'http://crowdfunded@micropasts.org' }
+  before{ Configuration[:email_projects] = 'info@micropasts.org' }
   render_views
   subject{ response }
   let(:project){ create(:project, state: 'draft') }
@@ -64,7 +64,7 @@ describe ProjectsController do
     describe 'staging env' do
       before do
         request.stub(:protocol).and_return("http://")
-        request.stub(:host).and_return("staging.neighbor.ly")
+        request.stub(:host).and_return("staging.micropasts.org")
         request.stub(:port).and_return(80)
         request.stub(:port_string).and_return(":80")
         request.stub(:path).and_return("/")
@@ -77,13 +77,8 @@ describe ProjectsController do
     end
 
     describe 'users without email' do
-      let(:current_user) { create(:user, email: "change-your-email+#{Time.now.to_i}@neighbor.ly") }
-
+      let(:current_user) { create(:user, email: "change-your-email+#{Time.now.to_i}@micropasts.org") }
       before do
-<<<<<<< HEAD
-        current_user.update email: "change-your-email+#{current_user.id}@micropasts.org"
-=======
->>>>>>> upstream/master
         get :index
       end
 
