@@ -1,7 +1,7 @@
 en:
   projects:
     index:
-      title: 'Fundraising for heritage projects'
+      title: 'Fundraising for archaeology, history and heritage projects'
       recommended: 'Recommended'
       near: 'Projects Near'
       channels: 'Partners'
@@ -13,15 +13,15 @@ en:
         already_joined: 'Already joined? %{link}.'
         sign_in: 'Sign in'
       hero:
-        title: 'Invest in heritage projects that <strong>you</strong> care about.'
+        title: 'Invest in archaeology, history and heritage projects that you care about.'
       how-it-works:
         one:
-          headline: 'For Communities'
-          text: "If you have heritage projects in need of new funding sources, you've come to the right place."
+          headline: 'Research you can do'
+          text: "If you have a collaborative research project about the human past that needs funding, you've come to the right place to start a campaign."
           button: 'Raise Money'
         two:
-          headline: 'For Individuals'
-          text: 'Do you want to earn rewards or perks while helping projects? What you do matters. Welcome to MicroPasts.'
+          headline: 'Research you can fund'
+          text: 'Want to discover research projects about a subject, region or period of human history you love? Want help fund, and develop closer links with, existing projects? Welcome to MicroPasts.'
           button: 'Find Projects'
     start_one:
       title: 'Have a community project in need of funding?'
