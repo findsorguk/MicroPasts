@@ -1,8 +1,8 @@
 en:
   layouts:
     header:
-      start_campaign: 'Start a Campaign'
-      discover: 'Discover'
+      start_campaign: 'Build a Campaign'
+      discover: 'Discover Campaigns'
       about: 'About us'
       sign-out: 'Log out'
       sign-up: 'Join'
