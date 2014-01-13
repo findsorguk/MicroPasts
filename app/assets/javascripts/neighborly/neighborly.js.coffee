@@ -12,15 +12,16 @@ window.Neighborly =
   modules: -> []
 
   initPage: ->
-    that = this
+    NProgress.configure
+      showSpinner: false
     unless window.Turbolinks is undefined
-      $(document).bind "page:fetch", ->
-        that.Loading.show()
+      $(document).bind "page:fetch", =>
+        this.Loading.show()
 
-      $(document).bind "page:restore", ->
-        that.Loading.hide()
+      $(document).bind "page:restore", =>
+        this.Loading.hide()
 
-      $(document).bind "page:change", ->
+      $(document).bind "page:change", =>
         $(window).scrollTop(0)
 
         try
@@ -31,6 +32,8 @@ window.Neighborly =
   init: ->
     $(document).foundation('reveal', {animation: 'fadeAndPop', animationSpeed: 100})
     $(document).foundation()
+    this.flash.init()
+    this.backstretch.init()
 
     $.pjax.defaults.scrollTo = false if $.pjax.defaults?
     $.pjax.defaults.timeout = false if $.pjax.defaults?
@@ -51,3 +54,22 @@ window.Neighborly =
       $('#loading').addClass('show')
     hide: ->
       $('#loading').removeClass('show')
+
+  flash:
+    init: ->
+      clearTimeout(this.flash_time_out)
+      if $('.flash').length > 0
+        this.flash_time_out = setTimeout(this.close, 5000) if $('.flash .alert-box.dismissible').length == $('.flash .alert-box').length
+        $('.flash a.close').click(this.close)
+
+    close: ->
+      $('.flash .alert-box').fadeOut('fast')
+      setTimeout (->
+        $('.flash').slideUp('slow')
+      ), 100
+
+  backstretch:
+    init: ->
+      if $('header.hero').not('.no-image').data('image-url') != null && $('header.hero').not('.no-image').data('image-url') != ''
+        $('header.hero').backstretch($('header.hero').data('image-url'), {fade: 'normal'})
+

@@ -8,16 +8,11 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :omniauthable, :confirmable
 
   begin
-    sync_with_mailchimp subscribe_data: ->(user) {
-                          { EMAIL: user.email, FNAME: user.name,
-                          CITY: (user.address_city||'other'), STATE: (user.address_state||'other') }
-                        },
+    sync_with_mailchimp subscribe_data: ->(user) { { EMAIL: user.email, NAME: user.display_name } },
                         list_id: Configuration[:mailchimp_list_id],
                         subscribe_when: ->(user) { (user.newsletter_changed? && user.newsletter) || (user.newsletter && user.new_record?) },
                         unsubscribe_when: ->(user) { user.newsletter_changed? && !user.newsletter },
                         unsubscribe_email: ->(user) { user.email }
-
-
   rescue Exception => e
     Rails.logger.info "-----> #{e.inspect}"
   end
@@ -26,7 +21,7 @@ class User < ActiveRecord::Base
   after_validation :geocode # auto-fetch coordinates
 
   delegate :display_name, :display_image, :short_name, :display_image_html,
-    :medium_name, :display_credits, :display_total_of_backs, :first_name, :gravatar_url,
+    :medium_name, :display_credits, :display_total_of_backs, :first_name, :last_name, :gravatar_url,
     to: :decorator
 
   attr_accessible :email,
@@ -58,8 +53,6 @@ class User < ActiveRecord::Base
     :moip_login,
     :new_project,
     :profile_type,
-    :company_name,
-    :company_logo,
     :address,
     :hero_image,
     :remote_uploaded_image_url,
@@ -69,7 +62,6 @@ class User < ActiveRecord::Base
   attr_accessor :address
 
   mount_uploader :uploaded_image, UserUploader, mount_on: :uploaded_image
-  mount_uploader :company_logo, CompanyLogoUploader, mount_on: :company_logo
   mount_uploader :hero_image, HeroImageUploader, mount_on: :hero_image
 
   validates_length_of :bio, maximum: 140

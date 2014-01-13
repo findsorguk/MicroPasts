@@ -41,9 +41,16 @@ en:
         new_project: 'Email me when new projects are added to MicroPasts'
         profile_type: 'Display me as a'
         phone_number: 'Phone number'
+<<<<<<< HEAD
         address_street: 'Street'
         address_neighbourhood: 'Neighborhood'
         address_zip_code: 'Zip or post code'
+=======
+        address: 'City, State'
+        address_street: 'Street Address'
+        address_neighbourhood: 'Neighborhood Name'
+        address_zip_code: 'Zip code'
+>>>>>>> upstream/master
         other_url: 'Your website'
       project:
         name: 'Campaign Title'
@@ -62,8 +69,8 @@ en:
         site: 'Website'
         hash_tag: 'Hashtag'
         foundation_widget: 'Use new foundation widget?'
-        address_neighborhood: 'Neighborhood'
-        address: 'City/State'
+        address_neighborhood: 'Neighborhood Name'
+        address: 'City, State'
         address_city: 'City'
         address_state: 'State'
         budget: 'Budget Detail'
@@ -72,8 +79,13 @@ en:
           category_id: 'Choose Category'
       backer:
         new:
+<<<<<<< HEAD
           anonymous: 'I want my backing to be anonymous.'
           short_note: 'Optional: add a short note to accompany your contribution. This will be displayed next to your name on the "backers" tab.'
+=======
+          anonymous: 'I want to contribute anonymously.'
+          short_note: 'Optional: Add a short note to accompany your contribution. This will be displayed with your name on the "Neighbors" tab.'
+>>>>>>> upstream/master
     hints:
       project:
         edit:

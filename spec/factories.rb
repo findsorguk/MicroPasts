@@ -22,6 +22,7 @@ FactoryGirl.define do
   end
 
   factory :project_document do |f|
+    f.name 'name'
     f.document "foo.png"
     f.association :project
   end
@@ -156,6 +157,12 @@ FactoryGirl.define do
     f.association :user
     f.name 'Organization name'
     f.image File.open("#{Rails.root}/spec/fixtures/image.png")
+  end
+
+  factory :users_oauth_provider, class: 'UsersOauthProviders' do
+    oauth_provider 1
+    user_id 1
+    uid "MyText"
   end
 end
 

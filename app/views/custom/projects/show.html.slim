@@ -17,7 +17,7 @@
   meta property="fb:admins" content="#{fb_admins}"
 
 .project-page
-  header.hero[style="#{ "background-image: url(#{image_url(@project.hero_image_url(:blur))})" if @project.hero_image_url.present?}"]
+  = hero_header_tag @project do
     .row
       .large-12.columns
         .name
@@ -85,13 +85,15 @@
       nav.tabs[data-target-container=".project-page section.content"]
         = tab_link_to t('.tabs.about'), project_path(@project)
 
-        = tab_link_to project_updates_path(@project) do
-          = t('.tabs.updates')
-          span.count=" #{@project.updates.size}"
+        - if can? :update, @project || @project.updates.size > 0
+          = tab_link_to project_updates_path(@project) do
+            = t('.tabs.updates')
+            span.count=" #{@project.updates.size}"
 
-        = tab_link_to project_backers_path(@project) do
-          = t('.tabs.backers')
-          span.count=" #{@project.total_backers}"
+        - if @project.total_backers > 0
+          = tab_link_to project_backers_path(@project) do
+            = t('.tabs.backers')
+            span.count=" #{@project.total_backers}"
 
         = tab_link_to comments_project_path(@project) do
           = t('.tabs.comments')
@@ -157,18 +159,16 @@
                 h5 = t('.in_partnership_with')
                 = image_tag @project.last_channel.image.large.url
 
-      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
-
-      section.custom.neighbors-behind-this
-        .title = t('.neighbors_behind_this')
-        - if @project.total_backers > 0
+      - if @project.total_backers > 0
+        section.custom.neighbors-behind-this
+          .title = t('.neighbors_behind_this')
           .list
             - for backer in @project.backers.available_to_display.order("RANDOM()").limit(15)
               = link_to image_tag(backer.user.display_image), user_path(backer.user), tite: backer.user.display_name
           .more
             = link_to pluralize(@project.total_backers, t('words.neighbor_singular'), t('words.neighbor_plural')), project_backers_path(@project)
-        - else
-          p = t('.no-neighbors')
+
+      section.rewards[data-rewards-path=project_rewards_path(@project) data-can-update="#{can?(:update, @project)}"]
 
 - content_for :modals do
   #reward-contact.reveal-modal.small.fixed

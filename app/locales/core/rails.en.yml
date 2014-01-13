@@ -193,6 +193,10 @@ en:
   time:
     am: am
     formats:
+<<<<<<< HEAD
+=======
+      prevision: "%b %Y"
+>>>>>>> upstream/master
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%d %B, %Y %H:%M'
       short: ! '%d %b %H:%M'
