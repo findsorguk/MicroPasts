@@ -7,14 +7,10 @@ en:
         flexible: "A <span data-tooltip class='has-tip' title='Every Pound Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
       status-bar:
         goal: 'Goal: %{value}'
-<<<<<<< HEAD
-        total_backers: '%{value} backers'
+        total_backers: '%{value} contributors'
         see_all_backers: 'See all the MicroPasts members behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
-=======
-        total_backers: '%{value} neighbors'
->>>>>>> upstream/master
         contribute: 'Contribute'
       tabs:
         about: 'About'
@@ -44,11 +40,7 @@ en:
       edit: 'Edit campaign'
       share:
         title: 'Get your friends involved'
-<<<<<<< HEAD
-      no-neighbors: "No members yet."
-=======
-      no-neighbors: "No neighbors yet. Be the first!"
->>>>>>> upstream/master
+      no-neighbors: "No contributors yet."
       author:
         about: 'About %{name}'
       in_partnership_with: 'In Partnership With'
