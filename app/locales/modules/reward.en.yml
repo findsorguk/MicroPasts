@@ -1,10 +1,6 @@
 en:
   reward:
-<<<<<<< HEAD
-    dont_want: "I'm just donating, I don't want a perk."
-=======
     dont_want: "Just donating, I don't want a reward."
->>>>>>> upstream/master
     limited: 'Limited'
     sold_out: 'Sold out'
     display_remaining: "Only %{remaining} of %{maximum} Available"

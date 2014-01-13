@@ -470,10 +470,6 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
-<<<<<<< HEAD
-    websocket-driver (0.3.1)
-=======
->>>>>>> upstream/master
     weekdays (1.0.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
