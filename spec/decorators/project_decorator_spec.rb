@@ -68,7 +68,7 @@ describe ProjectDecorator do
     subject{ project.display_address_formated }
 
     context "when we have all the address fields" do
-      let(:project){ create(:project, address: 'Kansas City, MO', address_neighborhood: 'Downtown') }
+      let(:project){ create(:project, address: 'Gordon Square', address_neighborhood: 'Bloomsbury') }
       it{ should == "Downtown // Kansas City, MO" }
     end
 

@@ -125,7 +125,7 @@ describe Authorization do
       it{ should be_persisted }
       its(:uid){ should == oauth_data['uid'] }
       its(:user){ should be_persisted }
-      it { expect(subject.user.email).to match(/change-your-email\+[0-9]+@neighbor\.ly/) }
+      it { expect(subject.user.email).to match(/change-your-email\+[0-9]+@micropasts\.org/) }
       it { expect(subject.user.confirmed?).to be_true }
     end
   end
