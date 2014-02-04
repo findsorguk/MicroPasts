@@ -16,13 +16,13 @@ en:
         title: 'Invest in archaeology, history and heritage projects that you care about.'
       how-it-works:
         one:
-          headline: 'Research you can do'
-          text: "If you have a collaborative research project about the human past that needs funding, you've come to the right place to start a campaign."
-          button: 'Raise Money'
+          headline: ' '
+          text: "Want to discover and help fund research projects about a subject, region or period of human history you love? Welcome to MicroPasts."
+          button: 'Help a Campaign'
         two:
-          headline: 'Research you can fund'
-          text: 'Want to discover research projects about a subject, region or period of human history you love? Want help fund, and develop closer links with, existing projects? Welcome to MicroPasts.'
-          button: 'Fund Projects'
+          headline: ' '
+          text: "If you have a collaborative research project about the human past that needs funding, you've come to the right place. Welcome to MicroPasts."
+          button: 'Start a Campaign'
     start_one:
       title: 'Have a community project in need of funding?'
       button: 'Start one in your area'

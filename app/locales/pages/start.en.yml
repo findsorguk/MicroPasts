@@ -1,21 +1,21 @@
 en:
   static:
     start:
-      title: "The MicroPasts platform is a collaborative way to help build and enhance heritage projects you care about."
-      subtitle: "Use this guide to start building a better community!"
+      title: "The MicroPasts crowdfunding platform is a way to finance research projects about the human past that you care about."
+      subtitle: "Use this guide to start building a campaign!"
       submit: "Get Started"
       one:
-        title: "Submit"
-        text: "When your idea is ready, we want to hear about it! Initially, you'll provide details about your project to help us understand what it is you'd like to build and to ensure that it fits into our guidelines and scope of work."
+        title: "Design and Review"
+        text: "We are looking for high quality research projects involving both traditional contributors from universities, museums and other research institutions, and a wider community of interested contributors. If you have a project that fits this bill or think that you can design one with our help, then please contact us! After we receive your project, our team will review it to ensure that there is a good fit with the overall scope of MicroPasts and has every chance of being successful."
       two:
-        title: "Review"
-        text: "After we receive your project, it will be reviewed by our team. This process acts as a filter to ensure that only quality, shovel-ready projects make it onto the platform. Remember, we want your project to be as successful as much as you do."
+        title: "Review TO CUT"
+        text: "After we receive your project, our team will review it to ensure that there is a good fit with the overall scope of MicroPasts and has every chance of being successful."
       three:
-        title: "Plan"
-        text: "Marketing 101. Once your project has been approved, you'll begin to build your campaign strategy. The foundation of a successful project is in a successful marketing plan. So begin to gather your contacts and schedule your Tweets <strong>before</strong> you launch!"
+        title: "Plan TO CUT"
+        text: "Once your project has been approved, we will help you with the final details of preparing a launch. Successful crowdfunding projects usually have not only great appeal, but also great marketing, so we will help you develop a strategy for publicising your campaign."
       four:
-        title: "Launch"
-        text: "Your project has been approved and your campaign has been planned, now you're ready to go live! Utilize the tools at hand to reach a broad audience and be sure to keep your supporters engaged and updated. 3... 2... 1... blast off!"
+        title: "Plan and Launch"
+        text: "Once your project has been approved, we will help you with the final details of preparing a launch. Successful crowdfunding projects usually have not only great appeal, but also great marketing, so we will help you develop a strategy for publicising your campaign. Once everything goes live, use this site to monitor how things are progressing!"
       need: "You'll need:"
       team: "A Strong Team"
       copy: "Detailed Copy"

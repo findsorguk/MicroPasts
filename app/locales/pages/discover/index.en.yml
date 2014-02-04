@@ -1,7 +1,7 @@
 en:
   discover:
     index:
-      title: 'Discover amazing projects'
+      title: 'Discover research projects'
       empty: 'No projects found for your search.'
       tags: 'Popular Tags: '
       near: 'Locations'
