@@ -1,96 +1,5 @@
-<<<<<<< HEAD
 # coding: utf-8
 
-puts 'Seeding the database...'
-
-[
-  { pt: 'Arte', en: 'Art' },
-  { pt: 'Artes plásticas', en: 'Visual Arts' },
-  { pt: 'Circo', en: 'Circus' },
-  { pt: 'Comunidade', en: 'Community' },
-  { pt: 'Humor', en: 'Humor' },
-  { pt: 'Quadrinhos', en: 'Comicbooks' },
-  { pt: 'Dança', en: 'Dance' },
-  { pt: 'Design', en: 'Design' },
-  { pt: 'Eventos', en: 'Events' },
-  { pt: 'Moda', en: 'Fashion' },
-  { pt: 'Gastronomia', en: 'Gastronomy' },
-  { pt: 'Cinema e Vídeo', en: 'Film & Video' },
-  { pt: 'Jogos', en: 'Games' },
-  { pt: 'Jornalismo', en: 'Journalism' },
-  { pt: 'Música', en: 'Music' },
-  { pt: 'Fotografia', en: 'Photography' },
-  { pt: 'Ciência e Tecnologia', en: 'Science & Technology' },
-  { pt: 'Teatro', en: 'Theatre' },
-  { pt: 'Esporte', en: 'Sport' },
-  { pt: 'Web', en: 'Web' },
-  { pt: 'Carnaval', en: 'Carnival' },
-  { pt: 'Arquitetura e Urbanismo', en: 'Architecture & Urbanism' },
-  { pt: 'Literatura', en: 'Literature' },
-  { pt: 'Mobilidade e Transporte', en: 'Mobility & Transportation' },
-  { pt: 'Meio Ambiente', en: 'Environment' },
-  { pt: 'Negócios Sociais', en: 'Social Business' },
-  { pt: 'Educação', en: 'Education' },
-  { pt: 'Filmes de Ficção', en: 'Fiction Films' },
-  { pt: 'Filmes Documentários', en: 'Documentary Films' },
-  { pt: 'Filmes Universitários', en: 'Experimental Films' }
-].each do |name|
-   category = Category.find_or_initialize_by(name_pt: name[:pt])
-   category.update_attributes({
-     name_en: name[:en]
-   })
- end
-
-
-[
-  'confirm_backer','payment_slip','project_success','backer_project_successful',
-  'backer_project_unsuccessful','project_received', 'project_received_channel', 'updates','project_unsuccessful',
-  'project_visible','processing_payment','new_draft_project', 'new_draft_channel', 'project_rejected',
-  'pending_backer_project_unsuccessful', 'project_owner_backer_confirmed', 'adm_project_deadline',
-  'project_in_wainting_funds', 'credits_warning', 'backer_confirmed_after_project_was_closed',
-  'backer_canceled_after_confirmed', 'new_user_registration', 'new_project_visible'
-].each do |name|
-#  NotificationType.find_or_create_by(name: name)
-end
-
-{
-  company_name: 'Micropasts',
-  company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',
-  host: 'crowdfunded.micropasts.org',
-  base_url: "http://crowdfunded.micropasts.org",
-  email_contact: 'info@micropasts.org',
-  email_payments: 'funding@micropasts.org',
-  email_projects: 'projects@micropasts.org',
-  email_system: 'info@micropasts.org',
-  email_no_reply: 'no-reply@micropasts.org',
-  facebook_url: "http://facebook.com/micropasts",
-  facebook_app_id: 'change_me',
-  twitter_url: 'http://twitter.com/micropasts',
-  twitter_username: "micropasts",
-  twitter_widget_id: '407920344578531329',
-# mailchimp_url: "",
-  catarse_fee: '0.01',
-  support_forum: 'http://community.micropasts.org/',
-  base_domain: 'crowdfunded.micropasts.org',
-# uservoice_secret_gadget: 'change_this',
-# uservoice_key: 'uservoice_key',
-  faq_url: 'http://micropasts.org/faq',
-  feedback_url: 'http://community.micropasts.org',
-  terms_url: 'http://micropasts.org/terms',
-  privacy_url: 'http://micropasts.org/privacy',
-  about_channel_url: 'http://micropasts/about',
-# instagram_url: '',
-  blog_url: "http://micropasts.org",
-  github_url: 'http://github.com/findsorguk',
-  contato_url: 'http://micropasts.org/contact-us/'
-}.each do |name, value|
-   conf = Configuration.find_or_initialize_by(name: name)
-   conf.update_attributes({
-     value: value
-   }) if conf.new_record?
-end
-=======
->>>>>>> FETCH_HEAD
 require 'ffaker'
 
 # Disable sidekiq
@@ -186,11 +95,47 @@ puts 'Creating Configuration entries...'
      Configuration[name] = value
   end
 
+{
+  company_name: 'Micropasts',
+  company_logo: 'http://catarse.me/assets/catarse_bootstrap/logo_icon_catarse.png',
+  host: 'crowdfunded.micropasts.org',
+  base_url: "http://crowdfunded.micropasts.org",
+  email_contact: 'info@micropasts.org',
+  email_payments: 'funding@micropasts.org',
+  email_projects: 'projects@micropasts.org',
+  email_system: 'info@micropasts.org',
+  email_no_reply: 'no-reply@micropasts.org',
+  facebook_url: "http://facebook.com/micropasts",
+  facebook_app_id: 'change_me',
+  twitter_url: 'http://twitter.com/micropasts',
+  twitter_username: "micropasts",
+  twitter_widget_id: '407920344578531329',
+# mailchimp_url: "",
+  catarse_fee: '0.01',
+  support_forum: 'http://community.micropasts.org/',
+  base_domain: 'crowdfunded.micropasts.org',
+# uservoice_secret_gadget: 'change_this',
+# uservoice_key: 'uservoice_key',
+  faq_url: 'http://micropasts.org/faq',
+  feedback_url: 'http://community.micropasts.org',
+  terms_url: 'http://micropasts.org/terms',
+  privacy_url: 'http://micropasts.org/privacy',
+  about_channel_url: 'http://micropasts/about',
+# instagram_url: '',
+  blog_url: "http://micropasts.org",
+  github_url: 'http://github.com/findsorguk',
+  contato_url: 'http://micropasts.org/contact-us/'
+}.each do |name, value|
+   conf = Configuration.find_or_initialize_by(name: name)
+   conf.update_attributes({
+     value: value
+   }) if conf.new_record?
+end
+
 puts '---------------------------------------------'
 puts 'Done!'
 
 puts 'Creating State entries...'
-<<<<<<< HEAD
 
   [[name: 'Alabama', acronym: 'AL'],
   [name: 'Alaska', acronym: 'AK'],
@@ -249,172 +194,14 @@ puts 'Creating State entries...'
 puts '---------------------------------------------'
 puts 'Done!'
 
-
-
-puts 'Creating OauthProvider entries...'
-
-  categories = %w{facebook twitter google_oauth2 linkedin}
-  categories.each do |name|
-    OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
-=======
-
-  [[name: 'Alabama', acronym: 'AL'],
-  [name: 'Alaska', acronym: 'AK'],
-  [name: 'Arizona', acronym: 'AZ'],
-  [name: 'Arkansas', acronym: 'AR'],
-  [name: 'California', acronym: 'CA'],
-  [name: 'Colorado', acronym: 'CO'],
-  [name: 'Connecticut', acronym: 'CT'],
-  [name: 'Delaware', acronym: 'DE'],
-  [name: 'Florida', acronym: 'FL'],
-  [name: 'Georgia', acronym: 'GA'],
-  [name: 'Hawaii', acronym: 'HI'],
-  [name: 'Idaho', acronym: 'ID'],
-  [name: 'Illinois', acronym: 'IL'],
-  [name: 'Indiana', acronym: 'IN'],
-  [name: 'Iowa', acronym: 'IA'],
-  [name: 'Kansas', acronym: 'KS'],
-  [name: 'Kentucky', acronym: 'KY'],
-  [name: 'Louisiana', acronym: 'LA'],
-  [name: 'Maine', acronym: 'ME'],
-  [name: 'Maryland', acronym: 'MD'],
-  [name: 'Massachusetts', acronym: 'MA'],
-  [name: 'Michigan', acronym: 'MI'],
-  [name: 'Minnesota', acronym: 'MN'],
-  [name: 'Mississippi', acronym: 'MS'],
-  [name: 'Missouri', acronym: 'MO'],
-  [name: 'Montana', acronym: 'MT'],
-  [name: 'Nebraska', acronym: 'NE'],
-  [name: 'Nevada', acronym: 'NV'],
-  [name: 'New Hampshire', acronym: 'NH'],
-  [name: 'New Jersey', acronym: 'NJ'],
-  [name: 'New Mexico', acronym: 'NM'],
-  [name: 'New York', acronym: 'NY'],
-  [name: 'North Carolina', acronym: 'NC'],
-  [name: 'North Dakota', acronym: 'ND'],
-  [name: 'Ohio', acronym: 'OH'],
-  [name: 'Oklahoma', acronym: 'OK'],
-  [name: 'Oregon', acronym: 'OR'],
-  [name: 'Pennsylvania', acronym: 'PA'],
-  [name: 'Rhode Island', acronym: 'RI'],
-  [name: 'South Carolina', acronym: 'SC'],
-  [name: 'South Dakota', acronym: 'SD'],
-  [name: 'Tennessee', acronym: 'TN'],
-  [name: 'Texas', acronym: 'TX'],
-  [name: 'Utah', acronym: 'UT'],
-  [name: 'Vermont', acronym: 'VT'],
-  [name: 'Virginia', acronym: 'VA'],
-  [name: 'Washington', acronym: 'WA'],
-  [name: 'West Virginia', acronym: 'WV'],
-  [name: 'Wisconsin', acronym: 'WI'],
-  [name: 'Wyoming', acronym: 'WY'],
-  [name: 'Washington', acronym: 'DC']].each do |item|
-    State.create! item
->>>>>>> FETCH_HEAD
   end
 
 puts '---------------------------------------------'
 puts 'Done!'
-
-
-<<<<<<< HEAD
-puts 'Creating Category entries...'
-
-  categories = %w{Transit Bicycling Technology Entertainment Sports Recreation Schools Streetscapes Environment Restoration Event Mobility}
-  categories.each do |c|
-    Category.create! name_pt: c, name_en: c
-  end
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating Admin user...'
-  u = User.new name: 'Admin',
-               email: 'admin@admin.com',
-               password: 'password',
-               remote_uploaded_image_url: lorem_pixel_url('150/150', 'people')
-  u.admin = true
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating Test user...'
-
-  User.new admin: false,
-           name: 'Test',
-           email: 'test@test.com',
-           password: 'password',
-           remote_uploaded_image_url: lorem_pixel_url('150/150', 'people')
-  u.admin = true
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating Organization user...'
-
-  u = User.new email: 'org@org.com',
-               password: 'password',
-               profile_type: 'organization',
-               organization_attributes: { name: 'Organization Name', remote_image_url: lorem_pixel_url('300/150', 'bussines') }
-  u.admin = true
-  u.confirm!
-  u.save
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating Channel user...'
-
-  u = User.new name: 'Channel',
-               email: 'channel@channel.com',
-               password: 'password',
-               profile_type: 'channel'
-  u.admin = true
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-puts 'Creating system users...'
-
-  # User to receive company contact notifications
-  u = User.new email: Configuration[:email_contact], password: SecureRandom.hex(4)
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-
-  # User to receive new projects on draft notifications
-  u = User.new email: Configuration[:email_projects], password: SecureRandom.hex(4)
-  u.skip_confirmation!
-  u.confirm!
-  u.save
-=======
-
-puts 'Creating OauthProvider entries...'
-
-  categories = %w{facebook twitter google_oauth2 linkedin}
-  categories.each do |name|
-    OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
-  end
->>>>>>> FETCH_HEAD
-
-puts '---------------------------------------------'
-puts 'Done!'
-
-<<<<<<< HEAD
-=======
 
 puts 'Creating Category entries...'
 
-  categories = %w{Transit Bicycling Technology Entertainment Sports Recreation Schools Streetscapes Environment Restoration Event Mobility}
+  categories = %w{Archaeology Crowdsourcing Mapping}
   categories.each do |c|
     Category.create! name_pt: c, name_en: c
   end
@@ -491,10 +278,17 @@ puts 'Creating system users...'
   u.confirm!
   u.save
 
+puts 'Creating OauthProvider entries...'
+
+  categories = %w{facebook twitter google_oauth2 linkedin}
+  categories.each do |name|
+    OauthProvider.create! name: name, path: name, secret: 'SOMETHING', key: 'SOMETHING'
+  end
+
 puts '---------------------------------------------'
 puts 'Done!'
 
->>>>>>> FETCH_HEAD
+
 puts 'Creating channel...'
 
   c = Channel.create! user: User.where(email: 'channel@channel.com').first,

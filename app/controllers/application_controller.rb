@@ -4,10 +4,6 @@ class ApplicationController < ActionController::Base
   include Concerns::SocialHelpersHandler
 
   layout :application
-<<<<<<< HEAD
-
-=======
->>>>>>> FETCH_HEAD
   protect_from_forgery
   before_filter :require_basic_auth
 
@@ -31,15 +27,7 @@ class ApplicationController < ActionController::Base
   include ActionView::Helpers::NumberHelper
   def total_with_fee(contribution, payment_method)
     if payment_method == 'paypal'
-<<<<<<< HEAD
       value = (backer.value * 1.029)+0.30
-=======
-      value = (contribution.value * 1.029)+0.30
-    elsif payment_method == 'credit_card_net'
-      value = (contribution.value * 1.029)+0.30
-    elsif payment_method == 'echeck_net'
-      value = (contribution.value * 1.010)+0.30
->>>>>>> FETCH_HEAD
     else
       value = contribution.value
     end
