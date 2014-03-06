@@ -12,11 +12,7 @@ br
 br
 
 br
-<<<<<<< HEAD:app/views/custom/notifications_mailer/pending_contribution_project_unsuccessful.en.html.slim
 |When we've received confirmation of your contribution, you will receive credits in the amount of #{backer.display_value} that can be used toward any project on MicroPasts.
-=======
-|When we've received confirmation of your contribution, you will receive credits in the amount of #{contribution.display_value} that can be used toward any project on Neighbor.ly.
->>>>>>> FETCH_HEAD:app/views/custom/notifications_mailer/pending_contribution_project_unsuccessful.en.html.slim
 br
 br
 |If you prefer, you may request a refund of your contribution by clicking #{link_to("here", "#{Configuration[:base_url]}/users/#{contribution.user.to_param}#credits")}.
@@ -32,18 +28,8 @@ br
 |If you have any other questions, please access our #{link_to 'FAQ', "#{Configuration[:base_url]}/faq"}.
 
 br
-<<<<<<< HEAD:app/views/custom/notifications_mailer/pending_contribution_project_unsuccessful.en.html.slim
-<<<<<<< HEAD:app/views/custom/notifications_mailer/pending_backer_project_unsuccessful.en.html.slim
-|Contribution Key:
-strong #{backer.key}
-=======
 |Contribution Key:
 strong #{contribution.key}
->>>>>>> e104f4955dec9b9bb6699c6d2fdee67e8a0bbdc8:app/views/custom/notifications_mailer/pending_contribution_project_unsuccessful.en.html.slim
-=======
-|Contribution Key: 
-strong #{contribution.key}
->>>>>>> FETCH_HEAD:app/views/custom/notifications_mailer/pending_contribution_project_unsuccessful.en.html.slim
 br
 br
 |High fives,
