@@ -31,3 +31,5 @@ spec/tmp/
 /nbproject/*
 *.dot
 .ruby-version
+
+Gemfile

@@ -419,11 +419,9 @@ GEM
     slop (3.4.7)
     spectator-validates_email (0.2.0)
       activemodel (>= 3.0.0)
-<<<<<<< HEAD
+
     spreadsheet (0.9.6)
       ruby-ole (>= 1.0)
-=======
->>>>>>> e104f4955dec9b9bb6699c6d2fdee67e8a0bbdc8
     sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -452,11 +450,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-<<<<<<< HEAD
-    turbolinks (2.0.0)
-=======
     turbolinks (2.2.1)
->>>>>>> e104f4955dec9b9bb6699c6d2fdee67e8a0bbdc8
       coffee-rails
     tzinfo (0.3.38)
     uglifier (2.3.2)

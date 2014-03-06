@@ -16,8 +16,17 @@ en:
         title: 'Invest in archaeology, history and heritage projects that you care about.'
       how-it-works:
         one:
+<<<<<<< HEAD
           headline: 'Research you can do'
           text: "If you have a collaborative research project about the human past that needs funding, you've come to the right place to start a campaign."
+=======
+          headline: 'For Companies'
+          text: 'Neighbor.ly is the best way to earn golden impressions while doing good in customer communities.'
+          button: 'Request a Demo'
+        two:
+          headline: 'For Communities'
+          text: "If you have civic projects in need of new funding sources, you've come to the right place."
+>>>>>>> FETCH_HEAD
           button: 'Raise Money'
         two:
           headline: 'Research you can fund'

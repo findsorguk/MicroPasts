@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - channel = controller.channel
 
 .start-page
@@ -21,6 +22,33 @@
                                    second_step_icon: 'et-clock', second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
                                    third_step_icon: 'et-rocket', third_step_title: t('.steps.third.title'), third_step_description: t('.steps.third.description')
 
+=======
+- content_for :title, t('.title')
+
+- channel = controller.channel
+
+.start-page
+  header.hero[data-image-url="#{ (channel && channel.start_hero_image.present?) ? channel.start_hero_image_url(:blur) : image_path('start/hero.jpg')}"]
+    .row
+      .large-8.columns.large-centered.text-center
+        h2
+          - if channel
+            = channel.start.title
+            br/
+            = channel.start.subtitle
+          - else
+            = t('.title')
+  .white
+    section.steps
+      .row
+        - if channel
+          - steps = channel.start
+        - else
+          - steps = OpenStruct.new first_step_icon: 'et-paper-plane', first_step_title: t('.steps.first.title'), first_step_description: t('.steps.first.description'),
+                                   second_step_icon: 'et-clock', second_step_title: t('.steps.second.title'), second_step_description: t('.steps.second.description'),
+                                   third_step_icon: 'et-rocket', third_step_title: t('.steps.third.title'), third_step_description: t('.steps.third.description')
+
+>>>>>>> FETCH_HEAD
         - for step in [:first, :second, :third]
           .large-4.columns
             .large-11.columns.large-centered.rounded-top

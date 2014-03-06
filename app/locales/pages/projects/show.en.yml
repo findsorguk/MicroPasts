@@ -8,19 +8,27 @@ en:
         flexible: "A <span data-tooltip class='has-tip' title='Every Pound Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
       status-bar:
         goal: 'Goal: %{value}'
+<<<<<<< HEAD
         total_backers: '%{value} contributors'
         see_all_backers: 'See all the MicroPasts members behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
         total_contributions: '%{value} contributors'
+=======
+        total_contributions: '%{value} neighbors'
+>>>>>>> FETCH_HEAD
         contribute: 'Contribute'
       tabs:
         about: 'About'
         updates: 'Updates'
         faqs: 'FAQs'
         comments: 'Comments'
+<<<<<<< HEAD
         backers: 'Contributors'
         contributions: 'Contributors'
+=======
+        contributions: 'Neighbors'
+>>>>>>> FETCH_HEAD
         budget: 'Budget'
         terms: 'Terms'
         reports: 'Reports'

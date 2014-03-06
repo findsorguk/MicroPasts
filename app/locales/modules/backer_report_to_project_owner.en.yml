@@ -10,7 +10,11 @@ en:
     user_email: 'Email'
     payment_method: 'Payment Method'
     address_street: 'Street'
+<<<<<<< HEAD
     address_neighbourhood: 'Neighbourhood'
+=======
+    address_neighborhood: 'Neighborhood'
+>>>>>>> FETCH_HEAD
     address_city: 'City'
     address_state: 'State'
     address_zip_code: 'Zip or Post Code'
