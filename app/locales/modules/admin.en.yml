@@ -25,18 +25,41 @@ en:
         total_projects_online:
           title: 'Total Projects Online'
           hint: 'Number of Projects Online Now'
-        total_backs:
-          title: 'Total Backs'
-          hint: 'Number of Backs'
-        total_backers:
-          title: 'Total Backers'
-          hint: 'Number of Backers'
-        total_backed:
-          title: 'Total Backed'
+        total_contributions:
+          title: 'Total Contributions'
+          hint: 'Number of Contributions'
+        total_contributors:
+          title: 'Total Contributors'
+          hint: 'Number of Contributors'
+        total_contributed:
+          title: 'Total Contributed'
           hint: 'Funding Raised'
         total_subscribers:
           title: 'Total Followers'
           hint: 'Number of Followers'
+    companies:
+      contacts:
+        index:
+          menu: 'Contacts'
+          title: 'Companies Contacts'
+          first_name: 'First Name'
+          last_name: 'Last Name'
+          email: 'Email Address'
+          company_name: 'Company Name'
+          created_at: 'Created at'
+          no_records: 'No contacts yet'
+          details: 'Details'
+        show:
+          title: 'Companies Contact - Details'
+          first_name: 'First Name'
+          last_name: 'Last Name'
+          phone: 'Phone'
+          email: 'Email Address'
+          company_name: 'Company Name'
+          company_website: 'Company Website'
+          message: 'Message'
+          created_at: 'Contact sent at %{date}'
+          back: 'Back'
     tags:
       index:
         menu: 'Tags'
@@ -80,6 +103,8 @@ en:
       form:
         associate_existing_user: 'Associate an existing user'
         create_new_channel_user: 'Create a new user'
+        start_content: 'Content for Start Page'
+        success_content: 'Content for Successfully Submitted Page'
       members:
         messages:
           removed: 'Successfully removed!'
@@ -126,7 +151,7 @@ en:
         by_user_email: 'By user email'
         id: ID
         name: 'Name'
-        populate_backer: 'Prepopulate backer'
+        populate_contribution: 'Prepopulate contribution'
         send_to_trash: "Send to TRASH"
         send_to_draft: 'Send to DRAFT!'
         send_to_soon: 'Send to SOON!'
@@ -134,7 +159,7 @@ en:
         approve: 'Approve!'
         user_id: 'User ID'
         goal: 'Goal'
-        total_backs: 'Backs'
+        total_contributions: 'Contributions'
         online_date: 'Online date'
         pledged: 'Pledged'
         recommended: 'Recommended?'
@@ -172,9 +197,9 @@ en:
         key: Key
         submit: Search
         has_credits_difference: "Discrepancy in credits"
-        total_backed: backed
-        total_backers: backers
-        total_backs: backs
+        total_contributed: contributed
+        total_contributors: contributors
+        total_contributions: contributions
         total_users: users
         total_credits: credits
         total_credits_view: "calculated credits"
@@ -182,21 +207,21 @@ en:
         value: Value
         provider: Provider
         edit: 'Edit'
-    backers:
+    contributions:
       messages:
         successful:
-          confirm: 'Backer confirmed!'
-          pendent: 'Backer unconfirmed!'
-          refund: 'Backer refunded!'
+          confirm: 'Contribution confirmed!'
+          pendent: 'Contribution unconfirmed!'
+          refund: 'Contribution refunded!'
           change_reward: 'Reward changed!'
-          hide: 'Backer hidden!'
-          cancel: 'Backer canceled!'
-          push_to_trash: 'Backer deleted!'
+          hide: 'Contribution hidden!'
+          cancel: 'Contribution canceled!'
+          push_to_trash: 'Contribution deleted!'
       index:
-        push_to_trash: 'Delete backer'
-        cancel: 'Cancel backer'
+        push_to_trash: 'Delete contribution'
+        cancel: 'Cancel contribution'
         refund_and_hide: 'Refund and hide'
-        backer_info: 'Info of backer %{key}'
+        contribution_info: 'Info of contribution %{key}'
         payment_id: 'Payment ID'
         payment_method: 'Payment method'
         payment_fee: 'Payment method fee'
@@ -205,23 +230,23 @@ en:
         user_email: 'Catarse user email'
         pending_to_refund: 'Pending to refund'
         created_at: 'Created at'
-        title: "Backers management"
+        title: "Contributions management"
         menu: 'Contributions'
         anonymous: Anonymous?
         confirmed: Confirmed?
         credits: "Used credits?"
         id: ID
         key: Key
-        no_backers: "No contributors found."
+        no_contributions: "No contributors found."
         project: Project
         refunded: Refunded?
         requested_refund: "Requested refund?"
         reward: Reward
         no_reward: "No reward"
         submit: Search
-        total_backed: backed
-        total_backers: backers
-        total_backs: backs
+        total_contributed: contributed
+        total_contributors: contributors
+        total_contributions: contributions
         total_users: Users
         user: User
         value: Value
@@ -230,9 +255,9 @@ en:
         menu: "Statistics"
         title: "Statistics"
         total_users: "Users"
-        total_backs: "Backs"
-        total_backers: "Backers"
-        total_backed: "Backed"
+        total_contributions: "Contributions"
+        total_contributors: "Contributors"
+        total_contributed: "Contributed"
         total_projects: "Projects"
         total_projects_success: "Successful"
         total_projects_online: "Online"
@@ -241,7 +266,7 @@ en:
         current_period: "Last 8 weeks"
         previous_period: "Previous 8 weeks"
         last_year: "Last year"
-      backers_by_week:
+      contributions_by_week:
         title: "Backed value confirmed per week"
         current_period: "Last 8 weeks"
         previous_period: "Previous 8 weeks"

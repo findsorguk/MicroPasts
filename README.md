@@ -1,4 +1,4 @@
-# Neighbor.ly [![Build Status](https://secure.travis-ci.org/luminopolis/neighborly.png?branch=master)](https://travis-ci.org/luminopolis/neighborly) [![Coverage Status](https://coveralls.io/repos/luminopolis/neighborly/badge.png?branch=master)](https://coveralls.io/r/luminopolis/neighborly) [![Code Climate](https://codeclimate.com/github/luminopolis/neighborly.png)](https://codeclimate.com/github/luminopolis/neighborly) [![Dependency Status](https://gemnasium.com/luminopolis/neighborly.png)](https://gemnasium.com/luminopolis/neighborly) 
+# Neighbor.ly [![Build Status](https://secure.travis-ci.org/neighborly/neighborly.png?branch=master)](https://travis-ci.org/neighborly/neighborly) [![Coverage Status](https://coveralls.io/repos/neighborly/neighborly/badge.png?branch=master)](https://coveralls.io/r/neighborly/neighborly) [![Code Climate](https://codeclimate.com/github/neighborly/neighborly.png)](https://codeclimate.com/github/neighborly/neighborly) [![Dependency Status](https://gemnasium.com/neighborly/neighborly.png)](https://gemnasium.com/neighborly/neighborly) 
 
 Welcome to the first open source fundraising toolkit for civic projects. Neighbor.ly began in February 2012 as a fork of the wildly successful Brazillian crowdfunding platform [Catarse](https://github.com/catarse/catarse). Working closely with the developers of that project, Neighbor.ly is building towards a full spectrum fundraising toolkit for civic projects.
 
@@ -27,15 +27,13 @@ The two current supported payment gateways are:
 * Authorize.net for credit cards and e-checks
 * PayPal
 
-We're actively planning to implement [Dwolla](http://dwolla.com) in the future.
+We're implementing [Balanced](http://balancedpayments.com/) on [balanced-payments](https://github.com/neighborly/neighborly/tree/balanced_payments) branch.
 
 If you have created another payment engine, please contact us so we can link your engine here.
 
-
-
 ## How to contribute
 
-Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to submit pull requests and contact us if you have ideas or questions.
+Thank you for your interest in helping to advance this project. We are actively working on a public roadmap. Meanwhile, please feel free to [open issues](https://github.com/neighborly/neighborly/issues/new) with your concerns and [fix/implement](https://github.com/neighborly/neighborly/issues) something using pull requests. Probably the better way to do this is commenting on the issue so we can give you the responsibility of it. This will prevent more than one person to contribute with the same change.
 
 ### Coding style
 
@@ -51,6 +49,20 @@ We use RSpec, Capybara and Jasmine for the tests, and the best practices are:
 * Try to isolate models from controllers as best as you can.
 * Regard the existing tests for a style guide, we try to use implicit spec subjects and lazy evaluation as often as we can.
 
+## Quick Installation
+
+**IMPORTANT**: Make sure you have postgresql-contrib ([Aditional Modules](http://www.postgresql.org/docs/9.3/static/contrib.html)) installed on your system.
+
+```bash
+$ git clone https://github.com/neighborly/neighborly.git
+$ cd neighborly
+$ cp config/database.sample.yml config/database.yml
+$ vim config/database.yml
+# change username/password and save
+$ bundle install
+$ rake db:create db:migrate db:seed
+$ rails server
+```
 
 ## Credits
 

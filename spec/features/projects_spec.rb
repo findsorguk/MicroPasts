@@ -54,10 +54,10 @@ describe "Projects" do
       all("form#new_project").should have(1).items
       within "form#new_project" do
         foundation_select(project.category.to_s, from: 'project[category_id]')
+        foundation_select(I18n.t("project.organization_type.#{Project.organization_types.first}"), from: 'project[organization_type]')
         ['name', 'goal', 'address', 'headline', 'about'].each do |a|
           fill_in "project_#{a}", with: project.attributes[a]
         end
-        find('label[for=project_accepted_terms]').click
         find('input[type=submit]').click
       end
     end
@@ -91,7 +91,7 @@ describe "Projects" do
 
   describe "tabs" do
     before do
-      create(:backer, project: project, state: 'confirmed', user: project.user)
+      create(:contribution, project: project, state: 'confirmed', user: project.user)
       login
       visit project_path(project)
     end
@@ -106,11 +106,11 @@ describe "Projects" do
         end
       end
 
-      describe '#backers' do
-        it 'should be able to click on backers tab' do
+      describe '#contributions' do
+        it 'should be able to click on contributions tab' do
           within 'nav.tabs' do
-            find("a[href='#{project_backers_path(project)}']").click
-            current_path.should == project_backers_path(project)
+            find("a[href='#{project_contributions_path(project)}']").click
+            current_path.should == project_contributions_path(project)
           end
         end
       end

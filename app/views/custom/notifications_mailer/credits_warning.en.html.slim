@@ -1,5 +1,5 @@
-- backer = @notification.backer
-|Hi, <strong>#{backer.user.display_name}</strong> !
+- contribution = @notification.contribution
+|Hi, <strong>#{contribution.user.display_name}</strong> !
 br
 br
 |We spotted that you have £ #{backer.user.credits} in credits on the MicroPasts platform. What about backing another cool project right now?
@@ -8,7 +8,7 @@ br
 |We have selected below some project suggestions specially for you:
 br
 br
--backer.user.recommended_projects.limit(3).each do |project|
+-contribution.user.recommended_projects.limit(3).each do |project|
   |#{link_to(project.name, "#{Configuration[:base_url]}/projects/#{project.to_param}")}
   br
   |#{project.headline}

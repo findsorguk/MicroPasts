@@ -8,7 +8,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Catarse
+module Neighborly
   class Application < Rails::Application
     config.to_prepare do
       Devise::Mailer.layout "email" # email.haml or email.erb
@@ -45,8 +45,10 @@ module Catarse
     end
 
     config.active_record.observers = [
-      :backer_observer, :user_observer,
-      :update_observer, :project_observer, :payment_notification_observer
+      :contribution_observer, :user_observer,
+      :update_observer, :project_observer,
+      :payment_notification_observer, :company_contact_observer,
+      :authorization_observer
     ]
 
     # Enable the asset pipeline

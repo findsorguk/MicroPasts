@@ -1,8 +1,0 @@
-en:
-  projects:
-    backers:
-      index:
-        empty: "No contributions yet. Be the first!"
-      backer:
-        anonymous_backer: "Anonymous contributor"
-        no_reward: "This contributor did not select a reward"

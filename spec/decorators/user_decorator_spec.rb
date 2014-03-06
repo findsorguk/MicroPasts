@@ -39,7 +39,7 @@ describe UserDecorator do
     end
 
     context 'when profile_type is channel' do
-      let(:user){ create(:channel, name: 'Neighbor.ly').user }
+      let(:user){ create(:channel, name: 'Neighbor.ly').user.reload }
       it{ should == 'Neighbor.ly' }
     end
   end
@@ -96,7 +96,7 @@ describe UserDecorator do
 
     context 'when profile_type is channel' do
       context "when we have a channel image" do
-        let(:user){ create(:channel, image: 'image.png').user }
+        let(:user){ create(:channel, image: 'image.png').user.reload }
         before do
           image = double(url: 'image.png')
           image.stub(:thumb).and_return(image)
@@ -107,7 +107,7 @@ describe UserDecorator do
       end
 
       context 'when we dont have a organization image' do
-        let(:user){ create(:channel, image: nil).user }
+        let(:user){ create(:channel, image: nil).user.reload }
         it{ should == '/assets/logo-blank.jpg' }
       end
     end
@@ -128,13 +128,13 @@ describe UserDecorator do
     its(:display_credits) { should == '$0.00'}
   end
 
-  describe "#display_total_of_backs" do
+  describe "#display_total_of_contributions" do
     subject { create(:user) }
-    context "with confirmed backs" do
+    context "with confirmed contributions" do
       before do
-        create(:backer, state: 'confirmed', user: subject, value: 500.0)
+        create(:contribution, state: 'confirmed', user: subject, value: 500.0)
       end
-      its(:display_total_of_backs) { should == '$500.00'}
+      its(:display_total_of_contributions) { should == '$500.00'}
     end
   end
 end

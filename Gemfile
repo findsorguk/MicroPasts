@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.0'
+ruby '2.1.1'
 
-gem 'rails',    '4.0.2'
+gem 'rails',    '4.0.3'
 
 gem 'protected_attributes', '~> 1.0.5' # When upgrade to strong_parameters, remove this gem.
 gem 'rails-observers', '~> 0.1.2'
@@ -26,7 +26,8 @@ gem 'schema_associations'
 gem 'chartkick', '1.2.0'
 
 # Payment engines
-gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: 'efac34d9468429c588733bfda75aeeca74d8ad68'
+
+gem 'catarse_paypal_express', github: 'luminopolis/catarse_paypal_express', ref: '18042ae7da233dc08860cbb96882f9166a854ac8'
 # Decorators
 gem 'draper'
 
@@ -34,9 +35,6 @@ gem 'draper'
 gem 'slim-rails'
 gem 'jquery-rails', '~> 3.0.4'
 gem 'browser'
-
-# Static pages
-gem 'high_voltage'
 
 # Authentication and Authorization
 gem 'omniauth'
@@ -66,7 +64,6 @@ gem 'dropzonejs-rails', '~> 0.4.10'
 
 # Other Tools
 gem 'has_permalink'
-gem 'to_xls'
 gem 'ranked-model'
 gem 'inherited_resources', '~> 1.4.1'
 gem 'has_scope', '~> 0.6.0.rc'
@@ -84,7 +81,7 @@ group :production do
 
   # Gem used to handle image uploading
   gem 'unf'
-  gem 'fog', '>= 1.3.1'
+  gem 'fog', '>= 1.20.0'
 
   # Workers, forks and all that jazz
   gem 'unicorn'
@@ -101,16 +98,19 @@ group :production do
 end
 
 group :development do
+  gem 'ffaker'
   gem "letter_opener"
   gem 'thin'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
 end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.14.1'
   gem 'jasmine-rails', '~> 0.4.6'
   gem 'pry'
+  gem 'awesome_print'
 end
 
 group :test do
@@ -119,9 +119,9 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda'
   gem 'factory_girl_rails'
-  gem 'capybara',   '~> 2.1.0'
+  gem 'capybara',   '~> 2.2.1'
   gem 'coveralls', require: false
-  gem 'selenium-webdriver', '~> 2.35.1'
+  gem 'selenium-webdriver', '~> 2.39.0'
 end
 
 gem 'sass-rails', '~> 4.0.1'
@@ -130,10 +130,10 @@ gem 'compass-rails'
 gem 'uglifier'
 gem 'font-icons-rails', github: 'shorelabs/font-icons-rails', ref: '19da71315862d54f766645444accd4e9f5dab6e7'
 gem 'zurb-foundation', '~> 4.3.2'
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.2.1'
 gem 'nprogress-rails'
 gem 'pjax_rails'
-gem 'initjs', '~> 2.0.0'
+gem 'initjs', '~> 2.1.0'
 
 # FIXME: Not-anymore-on-development
 # Gems that are with 1 or more years on the vacuum

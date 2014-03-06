@@ -1,4 +1,4 @@
-Catarse::Application.configure do
+Neighborly::Application.configure do
   Slim::Engine.set_default_options pretty: true
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -30,7 +30,5 @@ Catarse::Application.configure do
 
   # mailcatcher configs
   config.action_mailer.delivery_method = :letter_opener
-
-  config.action_mailer.asset_host = "http://localhost:3000"
 end
 

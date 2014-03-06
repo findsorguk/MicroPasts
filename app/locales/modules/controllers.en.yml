@@ -4,7 +4,7 @@ en:
       create:
         success: 'Your information has been updated!'
     projects:
-      backers:
+      contributions:
         new:
           cannot_back: "It's not possible to help greenlight this project right now. Please, back other projects."
           no_reward: "No perks! I just want to help out the project!"
@@ -19,12 +19,17 @@ en:
           no_credits: "You don't have enough credits to help greenlight this project."
           success: "Your backing was successfully made. Thanks a lot!"
     users:
+      completeness_progress: 'Please <a href="%{link}">complete your profile</a> so we can talk you up, and give you full credit for being awesome!'
       update:
         success: 'Your information has been updated!'
-      backers:
+      contributions:
         request_refund:
           refunded: "Refund request successfully done. Our team will contact you within two business days."
           insufficient_credits: "You don't have enough credits to request this refund."
     channels_subscribers:
       created: 'You are now following %{channel}'
       deleted: 'You are no longer following %{channel}'
+    companies:
+      contacts:
+        create:
+          success: 'Thank you for your interest! We will be in touch soon.'

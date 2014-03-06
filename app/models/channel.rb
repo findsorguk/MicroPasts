@@ -4,8 +4,10 @@ class Channel < ActiveRecord::Base
   extend CatarseAutoHtml
   include Shared::StateMachineHelpers
   include Channel::StateMachineHandler
+  include Channel::StartContent
+  include Channel::SuccessContent
 
-  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :user, :user_id, :user_attributes
+  attr_accessible :description, :name, :permalink, :video_url, :image, :how_it_works, :accepts_projects, :submit_your_project_text, :user, :user_id, :user_attributes, :start_hero_image, :start_primary_content, :start_content, :success_content
 
   validates_presence_of :name, :description, :permalink, :user
   validates_uniqueness_of :permalink
@@ -20,9 +22,10 @@ class Channel < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   catarse_auto_html_for field: :how_it_works, video_width: 560, video_height: 340
+  catarse_auto_html_for field: :submit_your_project_text
 
   delegate :display_video_embed_url, to: :decorator
-  mount_uploader :image, OrganizationUploader, mount_on: :image
+  mount_uploader :image, ChannelUploader, mount_on: :image
 
   scope :by_permalink, ->(p) { where("lower(channels.permalink) = lower(?)", p) }
 

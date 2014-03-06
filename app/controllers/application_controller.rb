@@ -3,17 +3,20 @@ class ApplicationController < ActionController::Base
   include Concerns::ExceptionHandler
   include Concerns::SocialHelpersHandler
 
-  #layout :use_catarse_bootstrap
+  layout :application
+
   protect_from_forgery
   before_filter :require_basic_auth
 
+  before_filter :set_return_to, if: -> { !current_user && params[:redirect_to].present? }
   before_filter :redirect_user_back_after_login, unless: :devise_controller?
   before_filter :configure_permitted_parameters, if: :devise_controller?
   helper_method :channel, :referal_link, :total_with_fee
 
   before_filter :force_http
   before_action :referal_it!
-  before_action :needs_confirm_account
+  after_action :needs_confirm_account, unless: -> { request.xhr? }
+  after_action :complete_profile, unless: -> { request.xhr? }
 
   before_filter do
     if current_user and (current_user.email =~ /change-your-email\+[0-9]+@micropasts\.org/)
@@ -23,11 +26,11 @@ class ApplicationController < ActionController::Base
   #
   # TODO: REFACTOR
   include ActionView::Helpers::NumberHelper
-  def total_with_fee(backer, payment_method)
+  def total_with_fee(contribution, payment_method)
     if payment_method == 'paypal'
       value = (backer.value * 1.029)+0.30
     else
-      value = backer.value
+      value = contribution.value
     end
     number_to_currency value, :unit => "£", :precision => 2, :delimiter => ','
   end
@@ -46,9 +49,22 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def set_return_to
+    if params[:redirect_to].present?
+      session[:return_to] = params[:redirect_to]
+      flash[:devise_error] = t('devise.failure.unauthenticated')
+    end
+  end
+
   def needs_confirm_account
     if current_user && !current_user.confirmed?
-      flash[:notice] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+      flash[:notice_confirmation] = { message: t('devise.confirmations.confirm', link: new_user_confirmation_path), dismissible: false }
+    end
+  end
+
+  def complete_profile
+    if current_user && current_user.completeness_progress.to_i < 100
+      flash[:notice_completeness_progress] = { message: t('controllers.users.completeness_progress', link: edit_user_path(current_user)), dismissible: false }
     end
   end
 

@@ -67,8 +67,8 @@ class ProjectDecorator < Draper::Decorator
 
   def progress_bar
     width = source.display_progress
-    width = 5 if width < 1 && source.backers.with_state('confirmed').size > 0
-    content_tag(:div, class: [:progress, :round]) do
+    width = 5 if width < 1 && source.contributions.with_state('confirmed').size > 0
+    content_tag(:div, class: [:progress, :round, "#{'green-bar' if width >= 100}"]) do
       content_tag(:span, nil, class: :meter, style: "width: #{width}%")
     end
   end
@@ -81,6 +81,10 @@ class ProjectDecorator < Draper::Decorator
       image_tag("successful.#{I18n.locale}.png")
     end
 
+  end
+
+  def display_organization_type
+    I18n.t("project.organization_type.#{source.organization_type}")
   end
 
   private

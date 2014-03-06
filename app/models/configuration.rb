@@ -14,13 +14,22 @@ class Configuration < ActiveRecord::Base
         keys.map{|key| get key }
       end
     end
+
+    def fetch(key)
+      find_by!(name: key).value
+    rescue ActiveRecord::RecordNotFound
+      raise "No \"#{key}\" configuration defined."
+    end
+
     def []= key, value
       set key, value
     end
     private
 
     def get key
-      find_by_name(key).value rescue nil
+      Rails.cache.fetch("/configurations/#{key}") do
+        find_by_name(key).value rescue nil
+      end
     end
 
     def set key, value
@@ -29,6 +38,7 @@ class Configuration < ActiveRecord::Base
       rescue
         create!(name: key, value: value)
       end
+      Rails.cache.write("/configurations/#{key}", value)
       value
     end
 

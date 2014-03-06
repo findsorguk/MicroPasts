@@ -30,10 +30,24 @@ en:
         twitter: 'http://twitter.com/'
         website: 'http://www.'
     labels:
+      company_contact:
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        company_name: 'Company Name'
+        company_website: 'Company Website'
+        email: 'Email Address'
+        phone: 'Phone (If you prefer to be called)'
+        message: "Anything in particular that you'd like to know?"
       channel:
         how_it_works: 'About Us'
+        submit_your_project_text: 'Submit Your Project'
+        start_hero_image: 'Header Image'
+        start_content:
+          start_primary_content: 'Primary Content'
+          start_secondary_content: 'Secondary Content'
       profile:
         how_it_works: 'About Us'
+        submit_your_project_text: 'Submit Your Project'
       user:
         bio: 'Short Bio'
         password: 'New Password'
@@ -47,13 +61,13 @@ en:
         address_zip_code: 'Zip or post code'
         other_url: 'Your website'
       project:
-        name: 'Campaign Title'
-        campaign_type: 'Campaign Type'
+        name: 'Project Title'
+        campaign_type: 'Project Type'
         category_id: 'Category'
         category: 'Category'
         permalink: 'Permalink'
-        goal: 'Campaign Goal'
-        headline: 'Tagline'
+        goal: 'Project Budget'
+        headline: 'Summary'
         about: 'The Story'
         expires_at: 'Duration'
         online_days: 'Duration'
@@ -69,11 +83,11 @@ en:
         address_state: 'State'
         budget: 'Budget Detail'
         tag_list: 'Keywords'
+        street_address: 'Street Address'
         new:
-          category_id: 'Choose Category'
-      backer:
+          category_id: 'Project Category'
+      contribution:
         new:
-
           anonymous: 'I want to contribute anonymously.'
           short_note: 'Optional: Add a short note to accompany your contribution. This will be displayed with your name on the "Neighbors" tab.'
     hints:
@@ -83,11 +97,13 @@ en:
           about: "Tell us the story of your project. What is it, why does it matter, and why should contributors care about it? Here is the place for details."
           category: "Which category best describes your project?"
           expires_at: "How long will your campaign run? Research shows a 'Goldilocks window' between 30 and 60 days."
-          goal: "What is the total goal for the project? Keep in mind MicroPasts' platform fee, and the cost to fulfill perks you offer. No commas, currency sign or decimal."
           first_backers: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
+          goal: "What is the total goal for the project? Keep in mind MicroPast's platform fee, and the cost to fulfil perks you offer. No commas, currency sign or decimal."
+          first_contributions: "Having contributors already in hand is critical to the success of your project. You can list contributions already received, or contributions you can count on to come in on day 1 of your project. If you have neither, explain who you plan to target with your campaign."
           headline: "In 130 characters or less, summarize your project. Why should contributors support it?"
           name: "Be concise and objective. 8 words or less."
-          uploaded_image: "Upload a 512x400 image(.jpg)."
+          uploaded_image: "Upload a minimum 500x340 image(.jpg or .png)."
+          hero_image: "Upload a minimum 1600x600 image(.jpg or .png)."
           video_url: "Paste the link from a Youtube or Vimeo video about your project. Your video should be short enough to retain viewers, but descriptive enough that viewers can understand the project clearly."
           hash_tag: 'A short hashtag that can be added to tweets and Facebook updates.'
           site: "Paste the full link to your project's website, if it has one."
@@ -100,10 +116,19 @@ en:
           address_city: 'The primary city or region where your project is located.'
           address_state: 'Please select the state where your project is located.'
           tag_list: "Adding keywords improves the chances of your project being discovered. The best keywords relate to the subject matter of your project. For example, if your project is to build an accessible playground, then 'Playground' and 'Accessibility' are great tags. Start typing the first few characters to see a list of existing keywords."
+      channel:
+        image: "Upload a minimum 600x300 image(.jpg or .png)."
+      organization:
+        image: "Upload a minimum 300x150 image(.jpg or .png)."
+      user:
+        uploaded_image: "Upload a minimum 150x150 image(.jpg or .png)."
+        hero_image: "Upload a minimum 1600x350 image(.jpg or .png)."
   helpers:
     submit:
+      company_contact:
+        create: "Let's Talk!"
       user:
         update: 'Save Changes'
       project:
-        create: 'Submit Campaign'
-        update: 'Update Campaign'
+        create: 'Submit Project'
+        update: 'Update Project'

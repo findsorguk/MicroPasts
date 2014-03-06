@@ -42,6 +42,7 @@ FactoryGirl.define do
 
   factory :project do |f|
     f.name "Foo bar"
+    f.campaign_type { :flexible }
     f.permalink { generate(:permalink) }
     f.association :user, factory: :user
     f.association :category, factory: :category
@@ -52,7 +53,6 @@ FactoryGirl.define do
     f.online_days 5
     f.how_know 'Lorem ipsum'
     f.more_links 'Ipsum dolor'
-    f.first_backers 'Foo bar'
     f.video_url 'http://vimeo.com/17298435'
     f.state 'online'
     f.home_page true
@@ -67,7 +67,7 @@ FactoryGirl.define do
 
   factory :notification do |f|
     f.association :user, factory: :user
-    f.association :backer, factory: :backer
+    f.association :contribution, factory: :contribution
     f.association :project, factory: :project
     f.template_name 'project_success'
     f.origin_name 'Foo Bar'
@@ -83,7 +83,7 @@ FactoryGirl.define do
     f.days_to_delivery 10
   end
 
-  factory :backer do |f|
+  factory :contribution do |f|
     f.association :project, factory: :project
     f.association :user, factory: :user
     f.confirmed_at Time.now
@@ -93,7 +93,7 @@ FactoryGirl.define do
   end
 
   factory :payment_notification do |f|
-    f.association :backer, factory: :backer
+    f.association :contribution, factory: :contribution
     f.extra_data {}
   end
 
@@ -163,6 +163,13 @@ FactoryGirl.define do
     oauth_provider 1
     user_id 1
     uid "MyText"
+  end
+
+  factory :company_contact do
+    first_name 'First'
+    last_name 'Last'
+    email 'some@email.com'
+    company_name 'Test'
   end
 end
 

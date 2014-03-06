@@ -1,6 +1,6 @@
   require 'sidekiq/web'
 
-Catarse::Application.routes.draw do
+Neighborly::Application.routes.draw do
 
   mount JasmineRails::Engine => "/specs" if defined?(JasmineRails)
 
@@ -79,18 +79,19 @@ Catarse::Application.routes.draw do
   get "/faq",                   to: "static#faq",                 as: :faq
   get "/terms",                 to: "static#terms",               as: :terms
   get "/privacy",               to: "static#privacy",             as: :privacy
+  get "/start",                 to: "projects#start",             as: :start
 
-  #get "/guidelines_backers",    to: "static#guidelines_backers",  as: :guidelines_backers
-  get "/start",                 to: "static#start",               as: :start
-  get "/start/terms",           to: "static#start_terms",         as: :start_terms
-
+  # Only accessible on development
+  if Rails.env.development?
+    get "/base",                to: "static#base",              as: :base
+  end
 
   get "/discover/(:filter)(/near/:near)(/category/:category)(/tags/:tags)(/search/:search)", to: "discover#index", as: :discover
 
   resources :tags, only: [:index]
 
   namespace :reports do
-    resources :backer_reports_for_project_owners, only: [:index]
+    resources :contribution_reports_for_project_owners, only: [:index]
   end
 
   # Temporary
@@ -126,17 +127,17 @@ Catarse::Application.routes.draw do
       end
     end
 
-    resources :backers, controller: 'projects/backers' do
+    resources :contributions, controller: 'projects/contributions' do
       member do
         put 'credits_checkout'
       end
     end
   end
 
-  resources :users do
+  resources :users, path: 'neighbors' do
     resources :questions, controller: 'users/questions', only: [:new, :create]
     resources :projects, controller: 'users/projects', only: [ :index ]
-    resources :backers, controller: 'users/backers', only: [:index] do
+    resources :contributions, controller: 'users/contributions', only: [:index] do
       member do
         get :request_refund
       end
@@ -177,12 +178,12 @@ Catarse::Application.routes.draw do
         put 'reject'
         put 'push_to_draft'
         put 'push_to_soon'
-        get 'populate_backer'
+        get 'populate_contribution'
         post 'populate'
       end
     end
 
-    resources :backers, only: [ :index, :update ] do
+    resources :contributions, only: [ :index, :update ] do
       member do
         put 'confirm'
         put 'pendent'
@@ -195,11 +196,23 @@ Catarse::Application.routes.draw do
     end
 
     namespace :reports do
-      resources :backer_reports, only: [ :index ]
+      resources :contribution_reports, only: [ :index ]
       resources :funding_raised_per_project_reports, only: [ :index ]
       resources :statistics, only: [ :index ]
     end
+
+    namespace :companies do
+      resources :contacts, only: [:index, :show]
+    end
   end
+
+  namespace :companies do
+    get :contact, to: 'contacts#new'
+    resources :contacts, only: [:create]
+  end
+
+  # Redirect from old users url to the new
+  get "/users/:id", to: redirect('neighbors/%{id}')
 
   get "/set_email" => "users#set_email", as: :set_email_users
   get "/:id", to: redirect('projects/%{id}')

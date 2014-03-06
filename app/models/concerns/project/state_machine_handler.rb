@@ -4,7 +4,7 @@ module Project::StateMachineHandler
   included do
     #NOTE: state machine things
     #
-     state_machine :campaign_type, initial: :all_or_none do
+     state_machine :campaign_type, initial: :flexible do
       state :all_or_none, value: 'all_or_none'
       state :flexible, value: 'flexible'
     end
@@ -46,11 +46,11 @@ module Project::StateMachineHandler
 
       event :finish do
         transition online: :failed,             if: ->(project) {
-          !project.flexible? && project.expired? && !project.pending_backers_reached_the_goal?
+          !project.flexible? && project.expired? && !project.pending_contributions_reached_the_goal?
         }
 
         transition online: :waiting_funds,      if: ->(project) {
-          project.expired? && (project.pending_backers_reached_the_goal? || project.flexible?)
+          project.expired? && (project.pending_contributions_reached_the_goal? || project.flexible?)
         }
 
         transition waiting_funds: :successful,  if: ->(project) {

@@ -2,6 +2,7 @@ en:
   projects:
     show:
       so_far: '&nbsp; so far of &nbsp; '
+      anonymous_contribution: "Anonymous neighbor"
       subtitle:
         all_or_none: "A project in %{category_name}, in %{city}, by %{author}"
         flexible: "A <span data-tooltip class='has-tip' title='Every Pound Counts! <br /><br />In this type of campaign, the project is funded whether or not the goal is reached.'>flexible</span> %{category_name} project by %{author} in %{city}"
@@ -11,6 +12,7 @@ en:
         see_all_backers: 'See all the MicroPasts members behind this.'
         get_involved: 'Get Involved!'
         expires_at: 'Ends on %{date}'
+        total_contributions: '%{value} contributors'
         contribute: 'Contribute'
       tabs:
         about: 'About'
@@ -18,6 +20,7 @@ en:
         faqs: 'FAQs'
         comments: 'Comments'
         backers: 'Contributors'
+        contributions: 'Contributors'
         budget: 'Budget'
         terms: 'Terms'
         reports: 'Reports'

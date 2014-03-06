@@ -27,9 +27,7 @@ Cookbooks
 spec/tmp/
 *.sublime-project
 *.sublime-workspace
-<<<<<<< HEAD
 /nbproject/private/
 /nbproject/*
-=======
 *.dot
->>>>>>> upstream/master
+.ruby-version
